@@ -19,6 +19,12 @@ from tkinter import ttk
 import time
 
 
+def main():
+    get_teleoperation_frame()
+    get_control_frame()
+    get_arm_frame()
+
+
 def get_teleoperation_frame(window, mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame
@@ -253,3 +259,5 @@ def handle_exit(mqtt_sender):
     Then exit this program.
       :type mqtt_sender: com.MqttClient
     """
+
+main()
