@@ -23,14 +23,14 @@ def main():
     while True:
         time.sleep(0.01)  # Time to allow message processing
 
-class DelegateThatReceives(object):
+class reciever(object):
     def __init__(self):
-        self.drive = rosebot.DriveSystem()
+        self.robot = rosebot.RoseBot()
 
     def forward(self, speedL, speedR):
-        self.drive.go(speedL, speedR)
+        self.robot.drive_system.go(speedL, speedR)
 
     def stop(self):
-        self.drive.stop()
+        self.robot.drive_system.stop()
 
 main()
