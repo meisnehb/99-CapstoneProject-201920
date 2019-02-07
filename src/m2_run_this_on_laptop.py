@@ -29,11 +29,13 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
+    root.title = ('CSSE 120 CAPSTONE PROJECT, WINTER 18-19')
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
-
+    main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
+    main_frame.grid()
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
@@ -53,7 +55,7 @@ def main():
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
-
+    root.mainloop()
 
 
 def get_shared_frames(main_frame, mqtt_sender):
