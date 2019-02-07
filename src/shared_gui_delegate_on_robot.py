@@ -6,3 +6,31 @@
     and Hannah Meisner and Alyssa Taylor.
   Winter term, 2018-2019.
 """
+import rosebot
+import mqtt_remote_method_calls as com
+import time
+
+def main():
+    name1 = 'Robot23'
+    name2 = 'Hannah'
+
+    my_delegate = DelegateThatReceives()
+    mqtt_client = com.MqttClient(my_delegate)
+    mqtt_client.connect(name1, name2)
+    time.sleep(1)  # Time to allow the MQTT setup.
+    print()
+
+    while True:
+        time.sleep(0.01)  # Time to allow message processing
+
+class DelegateThatReceives(object):
+    def __init__(self):
+        self.drive = rosebot.DriveSystem()
+
+    def forward(self, speedL, speedR):
+        self.drive.go(speedL, speedR)
+
+    def stop(self):
+        self.drive.stop()
+
+main()

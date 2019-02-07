@@ -237,9 +237,10 @@ class ArmAndClaw(object):
           3. Resets the motor's position to 0.
         """
         self.raise_arm()
+        self.motor.reset_position()
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position() == 14.2:
+            if abs(self.motor.get_position()) >= (14.2 * 360):
                 self.motor.turn_off()
                 self.motor.reset_position()
                 break
@@ -251,13 +252,17 @@ class ArmAndClaw(object):
         """
         if self.motor.get_position() < desired_arm_position:
             self.motor.turn_on(100)
+            while True:
+                if self.motor.get_position() >= desired_arm_position:
+                    self.motor.turn_off()
+                    break
         elif self.motor.get_position() > desired_arm_position:
             self.motor.turn_on(-100)
+            while True:
+                if self.motor.get_position() <= desired_arm_position:
+                    self.motor.turn_off()
+                    break
 
-        while True:
-            if self.motor.get_position() == desired_arm_position:
-                self.motor.turn_off()
-                break
 
     def lower_arm(self):
         """
@@ -267,7 +272,7 @@ class ArmAndClaw(object):
         self.motor.turn_on(-100)
 
         while True:
-            if self.motor.get_position() == 0:
+            if self.motor.get_position() <= 0:
                 self.motor.turn_off()
                 break
 
