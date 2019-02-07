@@ -19,16 +19,16 @@ def main():
     """
 
     # test_raise_arm()
-    # test_calibrate_arm()
-    # print('calibrate')
-    # time.sleep(3)
-    # test_move_arm_position()
-    # print('move')
-    # time.sleep(3)
-    # test_lower_arm()
-    # print('lower')
+    test_calibrate_arm()
+    print('calibrate')
+    time.sleep(3)
+    test_move_arm_position()
+    print('move')
+    time.sleep(3)
+    test_lower_arm()
+    print('lower')
 
-    real_thing()
+    # real_thing()
 
 
 def test_raise_arm():
