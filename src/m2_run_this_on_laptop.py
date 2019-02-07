@@ -23,12 +23,12 @@ def main():
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
     mqtt_sender = com.MqttClient()
-    
+    mqtt_sender.connect_to_ev3()
 
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
-
+    root = tkinter.Tk()
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
