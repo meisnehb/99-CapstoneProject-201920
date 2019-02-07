@@ -157,6 +157,10 @@ def get_control_frame(window, mqtt_sender):
 # Handlers for Buttons in the Teleoperation frame.
 ###############################################################################
 def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
+    print()
+    l = left_entry_box.get()
+    r = right_entry_box.get()
+    mqtt_sender.send_message("forward", [l, r])
     """
     Tells the robot to move using the speeds in the given entry boxes,
     with the speeds used as given.
@@ -167,6 +171,11 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
 
 
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
+    print()
+    l = left_entry_box.get() * -1
+    r = right_entry_box.get() * -1
+    mqtt_sender.send_message("forward", [l, r])
+
     """
     Tells the robot to move using the speeds in the given entry boxes,
     but using the negatives of the speeds in the entry boxes.
@@ -176,6 +185,11 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     """
 
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
+    print()
+    l = left_entry_box.get() * 0.5
+    r = right_entry_box.get()
+    mqtt_sender.send_message("forward", [l, r])
+
     """
     Tells the robot to move using the speeds in the given entry boxes,
     but using the negative of the speed in the left entry box.
@@ -186,6 +200,11 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
 
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
+    print()
+    l = left_entry_box.get()
+    r = right_entry_box.get() * 0.5
+    mqtt_sender.send_message("forward", [l, r])
+
     """
     Tells the robot to move using the speeds in the given entry boxes,
     but using the negative of the speed in the right entry box.
@@ -196,6 +215,8 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
 
 
 def handle_stop(mqtt_sender):
+    mqtt_sender.send_message('stop')
+
     """
     Tells the robot to stop.
       :type  mqtt_sender:  com.MqttClient
