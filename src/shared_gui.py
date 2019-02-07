@@ -156,8 +156,10 @@ def get_control_frame(window, mqtt_sender):
 ###############################################################################
 # Handlers for Buttons in the Teleoperation frame.
 ###############################################################################
+
+
 def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
-    print()
+    print('Forward')
     l = left_entry_box.get()
     r = right_entry_box.get()
     mqtt_sender.send_message("forward", [l, r])
@@ -171,7 +173,7 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
 
 
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
-    print()
+    print('Backward')
     l = left_entry_box.get() * -1
     r = right_entry_box.get() * -1
     mqtt_sender.send_message("forward", [l, r])
@@ -184,8 +186,9 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
       :type  mqtt_sender:      com.MqttClient
     """
 
+
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
-    print()
+    print("Left")
     l = left_entry_box.get() * 0.5
     r = right_entry_box.get()
     mqtt_sender.send_message("forward", [l, r])
@@ -200,7 +203,7 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
 
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
-    print()
+    print("Right")
     l = left_entry_box.get()
     r = right_entry_box.get() * 0.5
     mqtt_sender.send_message("forward", [l, r])
@@ -215,6 +218,7 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
 
 
 def handle_stop(mqtt_sender):
+    print("Stop")
     mqtt_sender.send_message('stop')
 
     """
@@ -227,6 +231,7 @@ def handle_stop(mqtt_sender):
 # Handlers for Buttons in the ArmAndClaw frame.
 ###############################################################################
 def handle_raise_arm(mqtt_sender):
+    print("Raise")
     mqtt_sender.send_message('raise')
 
     """
@@ -236,6 +241,7 @@ def handle_raise_arm(mqtt_sender):
 
 
 def handle_lower_arm(mqtt_sender):
+    print('Lower')
     mqtt_sender.send_message('lower')
 
     """
@@ -245,6 +251,7 @@ def handle_lower_arm(mqtt_sender):
 
 
 def handle_calibrate_arm(mqtt_sender):
+    print('Calibrate that Boi')
     mqtt_sender.send_message('calibrate')
 
     """
@@ -256,7 +263,7 @@ def handle_calibrate_arm(mqtt_sender):
 
 
 def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
-    print()
+    print('Move Arm to Position')
     pos = arm_position_entry.get()
     mqtt_sender.send_message('move_to_pos', [pos])
 
@@ -272,7 +279,8 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
 # Handlers for Buttons in the Control frame.
 ###############################################################################
 def handle_quit(mqtt_sender):
-    mqtt_sender
+    print('Quit')
+    mqtt_sender.send_message('quit')
 
     """
     Tell the robot's program to stop its loop (and hence quit).
@@ -281,6 +289,9 @@ def handle_quit(mqtt_sender):
 
 
 def handle_exit(mqtt_sender):
+    print('Exit')
+    mqtt_sender.send_message('exit')
+
     """
     Tell the robot's program to stop its loop (and hence quit).
     Then exit this program.
