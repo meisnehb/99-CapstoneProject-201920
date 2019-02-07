@@ -18,9 +18,11 @@ def main():
     """
 
     # test_raise_arm()
-    # test_calibrate_arm()
-    # test_move_arm_position()
-    # test_lower_arm()
+    test_calibrate_arm()
+    time.sleep(3)
+    test_move_arm_position()
+    time.sleep(3)
+    test_lower_arm()
 
 
 def test_raise_arm():
@@ -35,7 +37,7 @@ def test_calibrate_arm():
 
 def test_move_arm_position():
     robot = rosebot.RoseBot()
-    robot.arm_and_claw.move_arm_to_position(2500)
+    robot.arm_and_claw.move_arm_to_position(5112)
 
 
 def test_lower_arm():
