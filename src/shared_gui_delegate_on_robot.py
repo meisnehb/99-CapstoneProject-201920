@@ -6,9 +6,3 @@
     and Hannah Meisner and Alyssa Taylor.
   Winter term, 2018-2019.
 """
-
-import rosebot
-import mqtt_remote_method_calls
-import time
-
-def main():
