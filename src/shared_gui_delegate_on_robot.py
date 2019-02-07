@@ -14,7 +14,7 @@ def main():
     name1 = 'Robot23'
     name2 = 'Hannah'
 
-    my_delegate = DelegateThatReceives()
+    my_delegate = reciever()
     mqtt_client = com.MqttClient(my_delegate)
     mqtt_client.connect(name1, name2)
     time.sleep(1)  # Time to allow the MQTT setup.
