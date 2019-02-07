@@ -240,6 +240,7 @@ class ArmAndClaw(object):
         while True:
             if self.motor.get_position() == 0:
                 self.motor.turn_off()
+                break
 
 ###############################################################################
 #    SensorSystem
