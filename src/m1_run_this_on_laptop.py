@@ -22,17 +22,20 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-
+    mqtt_sender = com.MqttClient
+    mqtt_sender.connect_to_ev3()
 
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
-
+    root = tkinter.Tk()
+    root.title("CSSE 120 Capstone Project, Winter 2018-2019")
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
-
+    main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='grooved')
+    main_frame.grid()
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
@@ -52,7 +55,7 @@ def main():
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
-
+    root.mainloop()
 
 
 def get_shared_frames(main_frame, mqtt_sender):
