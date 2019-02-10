@@ -10,6 +10,7 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 
+
 def main():
     name1 = 'Robot23'
     name2 = 'Hannah'
@@ -22,6 +23,7 @@ def main():
 
     while True:
         time.sleep(0.01)  # Time to allow message processing
+
 
 class receiver(object):
     def __init__(self):
