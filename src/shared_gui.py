@@ -174,8 +174,8 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
 
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     print('Backward')
-    l = left_entry_box.get()
-    r = right_entry_box.get()
+    l = left_entry_box.get() * -1
+    r = right_entry_box.get() * -1
     mqtt_sender.send_message("backward", [l, r])
 
     """
