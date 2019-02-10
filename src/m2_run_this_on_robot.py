@@ -11,6 +11,7 @@ import time
 import shared_gui_delegate_on_robot
 
 
+
 def main():
     """
     This code, which must run on the EV3 ROBOT:
@@ -19,16 +20,10 @@ def main():
     """
 
     # test_raise_arm()
-    test_calibrate_arm()
-    print('calibrate')
-    time.sleep(3)
-    test_move_arm_position()
-    print('move')
-    time.sleep(3)
-    test_lower_arm()
-    print('lower')
-
-    # real_thing()
+    # test_calibrate_arm()
+    # test_move_arm_position()
+    # test_lower_arm()
+    real_thing()
 
 
 def test_raise_arm():
@@ -52,8 +47,7 @@ def test_lower_arm():
 
 
 def real_thing():
-    robot = rosebot.RoseBot()
-    delegate = shared_gui_delegate_on_robot.receiver(robot)
+    delegate = shared_gui_delegate_on_robot.receiver()
     mqtt_receiver = com.MqttClient(delegate)
     mqtt_receiver.connect_to_pc()
 
