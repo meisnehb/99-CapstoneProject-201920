@@ -10,12 +10,11 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 
-
 def main():
     name1 = 'Robot23'
     name2 = 'Hannah'
 
-    my_delegate = reciever()
+    my_delegate = receiver()
     mqtt_client = com.MqttClient(my_delegate)
     mqtt_client.connect(name1, name2)
     time.sleep(1)  # Time to allow the MQTT setup.
@@ -24,8 +23,7 @@ def main():
     while True:
         time.sleep(0.01)  # Time to allow message processing
 
-
-class reciever(object):
+class receiver(object):
     def __init__(self):
         self.robot = rosebot.RoseBot()
 
