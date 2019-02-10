@@ -12,7 +12,7 @@ import time
 
 
 def main():
-    name1 = 'Robot23'
+    name1 = 'Robot09'
     name2 = 'Hannah'
 
     my_delegate = receiver()
