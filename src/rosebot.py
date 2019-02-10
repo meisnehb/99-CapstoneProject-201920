@@ -261,7 +261,6 @@ class ArmAndClaw(object):
                     self.motor.turn_off()
                     break
 
-
     def lower_arm(self):
         """
         Lowers the Arm until it is all the way down, i.e., position 0.
