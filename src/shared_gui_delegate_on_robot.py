@@ -31,6 +31,11 @@ class receiver(object):
     def forward(self, speedL, speedR):
         self.robot.drive_system.go(speedL, speedR)
 
+    def backward(self, speedL, speedR):
+        speedL = speedL * -1
+        speedR = speedR * -1
+        self.robot.drive_system.go(speedL, speedR)
+
     def stop(self):
         self.robot.drive_system.stop()
 
