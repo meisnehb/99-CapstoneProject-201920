@@ -21,7 +21,8 @@ def main():
     time.sleep(1)  # Time to allow the MQTT setup.
     print()
 
-    time.sleep(0.01)  # Time to allow message processing
+    while True:
+        time.sleep(0.01)  # Time to allow message processing
 
 
 class receiver(object):
@@ -34,9 +35,14 @@ class receiver(object):
     def backward(self, speedL, speedR):
         self.robot.drive_system.go(speedL, speedR)
 
+    def left(self, speedL, speedR):
+        self.robot.drive_system.go(speedL, speedR)
+
+    def right(self, speedL, speedR):
+        self.robot.drive_system.go(speedL, speedR)
+
     def stop(self):
         self.robot.drive_system.stop()
-
 
 
 main()
