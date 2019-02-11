@@ -217,25 +217,28 @@ def get_beeps_tones(window, mqtt_sender):
 
     blank_label1 = ttk.Label(frame, text="")
     blank_label2 = ttk.Label(frame, text="")
+    blank_label3 = ttk.Label(frame, text="")
+
 
     # Grid the widgets:
-    frame_label.grid(row=0, column=0)
+    frame_label.grid(row=0, column=1)
     num_of_beeps_label.grid(row=1, column=0)
     freq_label.grid(row=5, column=0)
-    duration_label.grid(row=5, column=1)
-    phrase_label.grid(row=9, column=0)
+    duration_label.grid(row=5, column=2)
+    phrase_label.grid(row=1, column=2)
 
     num_of_beeps_entry.grid(row=2, column=0)
     freq_entry.grid(row=6, column=0)
-    duration_entry.grid(row=6, column=1)
-    phrase_entry.grid(row=10, column=0)
+    duration_entry.grid(row=6, column=2)
+    phrase_entry.grid(row=2, column=2)
 
     blank_label1.grid(row=4, column=0)
     blank_label2.grid(row=8, column=0)
+    blank_label3.grid(row=2, column=1)
 
     num_of_beeps_button.grid(row=3, column=0)
-    play_button.grid(row=7, column=0)
-    phrase_button.grid(row=11, column=0)
+    play_button.grid(row=6, column=1)
+    phrase_button.grid(row=3, column=2)
 
     # Set the Button callbacks:
     num_of_beeps_button["command"] = lambda: handle_beep(num_of_beeps_entry, mqtt_sender)
@@ -359,11 +362,13 @@ def handle_beep(num_of_beeps_entry, mqtt_sender):
     n = int(num_of_beeps_entry.get())
     mqtt_sender.send_message('beep_number_of_times', [n])
 
+
 def handle_tone(freq_entry, duration_entry, mqtt_sender):
     print()
     f = int(freq_entry.get())
     d = int(duration_entry.get())
     mqtt_sender.send_message('tone', [f, d])
+
 
 def handle_speech(phrase_entry, mqtt_sender):
     print()
@@ -376,7 +381,7 @@ def handle_speech(phrase_entry, mqtt_sender):
 ###############################################################################
 def handle_raise_arm(mqtt_sender):
     print("Raise")
-    mqtt_sender.send_message('raise')
+    mqtt_sender.send_message('raise_arm')
 
     """
     Tells the robot to raise its Arm until its touch sensor is pressed.
@@ -386,7 +391,7 @@ def handle_raise_arm(mqtt_sender):
 
 def handle_lower_arm(mqtt_sender):
     print('Lower')
-    mqtt_sender.send_message('lower')
+    mqtt_sender.send_message('lower_arm')
 
     """
     Tells the robot to lower its Arm until it is all the way down.
@@ -396,7 +401,7 @@ def handle_lower_arm(mqtt_sender):
 
 def handle_calibrate_arm(mqtt_sender):
     print('Calibrate that Boi')
-    mqtt_sender.send_message('calibrate')
+    mqtt_sender.send_message('calibrate_arm')
 
     """
     Tells the robot to calibrate its Arm, that is, first to raise its Arm
@@ -408,8 +413,8 @@ def handle_calibrate_arm(mqtt_sender):
 
 def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
     print('Move Arm to Position')
-    pos = arm_position_entry.get()
-    mqtt_sender.send_message('move_to_pos', [pos])
+    pos = int(arm_position_entry.get())
+    mqtt_sender.send_message('arm_pos', [pos])
 
     """
     Tells the robot to move its Arm to the position in the given Entry box.
@@ -432,9 +437,10 @@ def handle_quit(mqtt_sender):
     """
 
 
-def handle_exit(mqtt_sender):
+def handle_exit():
     print('Exit')
-    mqtt_sender.send_message('exit')
+    handle_quit()
+    exit()
 
     """
     Tell the robot's program to stop its loop (and hence quit).
