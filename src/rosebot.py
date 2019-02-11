@@ -139,11 +139,24 @@ class DriveSystem(object):
         by the color_sensor is less than the given intensity.
         """
 
+        self.go(speed, speed)
+        while True:
+            if self.sensor_system.color_sensor.get_reflected_light_intensity() < intensity:
+                self.stop()
+                break
+
+
+
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        self.go(speed, speed)
+        while True:
+            if self.sensor_system.color_sensor.get_reflected_light_intensity() > intensity:
+                self.stop()
+                break
 
     def go_straight_until_color_is(self, color, speed):
         """
@@ -158,6 +171,20 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
+        self.go(speed, speed)
+
+        if type(color) == int:
+            while True:
+                if self.sensor_system.color_sensor.get_color() == color:
+                    self.stop()
+                    break
+
+        if type(color) == str:
+            while True:
+                if self.sensor_system.color_sensor.get_color_as_name() == color:
+                    self.stop()
+                    break
+
 
     def go_straight_until_color_is_not(self, color, speed):
         """
@@ -167,6 +194,19 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
+        self.go(speed, speed)
+
+        if type(color) == int:
+            while True:
+                if self.sensor_system.color_sensor.get_color() != color:
+                    self.stop()
+                    break
+
+        if type(color) == str:
+            while True:
+                if self.sensor_system.color_sensor.get_color_as_name() != color:
+                    self.stop()
+                    break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
@@ -176,6 +216,11 @@ class DriveSystem(object):
         Goes forward at the given speed until the robot is less than
         the given number of inches from the nearest object that it senses.
         """
+        self.go(speed, speed)
+        while True:
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() < inches:
+                self.stop()
+                break
 
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
@@ -183,6 +228,11 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         Assumes that it senses an object when it starts.
         """
+        self.go(-1 * speed, -1 * speed)
+        while True:
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() > inches:
+                self.stop()
+                break
 
     def go_until_distance_is_within(self, delta_inches, speed):
         """
