@@ -111,7 +111,6 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
-        pass
 
         self.left_motor.reset_position()
         self.right_motor.reset_position()
