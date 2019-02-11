@@ -218,7 +218,6 @@ def get_beeps_tones(window, mqtt_sender):
     blank_label1 = ttk.Label(frame, text="")
     blank_label2 = ttk.Label(frame, text="")
 
-
     # Grid the widgets:
     frame_label.grid(row=0, column=0)
     num_of_beeps_label.grid(row=1, column=0)
@@ -270,9 +269,9 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
 
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     print('Backward')
-    l = left_entry_box.get()
-    r = right_entry_box.get()
-    mqtt_sender.send_message("backward", [l, r])
+    l = int(left_entry_box.get()) * -1
+    r = int(right_entry_box.get()) * -1
+    mqtt_sender.send_message("forward", [l, r])
 
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -285,9 +284,9 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
 
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     print("Left")
-    l = left_entry_box.get() * 0.5
-    r = right_entry_box.get()
-    mqtt_sender.send_message("left", [l, r])
+    l = int(left_entry_box.get()) * 0.5
+    r = int(right_entry_box.get())
+    mqtt_sender.send_message("forward", [l, r])
 
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -300,9 +299,9 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     print("Right")
-    l = left_entry_box.get()
-    r = right_entry_box.get() * 0.5
-    mqtt_sender.send_message("right", [l, r])
+    l = int(left_entry_box.get())
+    r = int(right_entry_box.get()) * 0.5
+    mqtt_sender.send_message("forward", [l, r])
 
     """
     Tells the robot to move using the speeds in the given entry boxes,
