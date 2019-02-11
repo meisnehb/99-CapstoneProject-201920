@@ -60,11 +60,6 @@ class receiver(object):
         print("Quit")
         self.is_time_to_stop = True
 
-    def exit(self):
-        print("Exit")
-        quit()
-
-
     def beep_number_of_times(self, n):
         print('BEEP')
         for k in range(n):
