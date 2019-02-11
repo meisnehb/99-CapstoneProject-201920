@@ -51,4 +51,16 @@ class receiver(object):
     def exit(self):
         print("Exit")
 
+    def beep_number_of_times(self, n):
+        print('BEEP')
+        for k in range(n):
+            self.robot.sound_system.beeper.beep().wait(0.5)
+
+    def tone(self, f, d):
+        print('Nice Tone')
+        self.robot.sound_system.tone_maker.play_tone(f, d)
+
+    def speech(self, s):
+        print('Phrase')
+        self.robot.sound_system.speech_maker.speak(s)
 main()
