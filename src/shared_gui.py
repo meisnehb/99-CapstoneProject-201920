@@ -192,6 +192,56 @@ def get_drive_system_frame(window, mqtt_sender):
 
     return frame
 
+
+def get_beeps_tones(window, mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Beep and Tone")
+
+    num_of_beeps_label = ttk.Label(frame, text="Number of Beeps:")
+    num_of_beeps_entry = ttk.Entry(frame, width=8)
+    num_of_beeps_button = ttk.Button(frame, text="Number of Beeps")
+
+    freq_label = ttk.Label(frame, text='Frequency')
+    freq_entry = ttk.Entry(frame, width=8)
+    duration_label = ttk.Label(frame, text='Duration')
+    duration_entry = ttk.Entry(frame, width=8)
+    play_button = ttk.Button(frame, text="Play Tone")
+
+    phrase_label = ttk.Label(frame, text='Desired Phrase:')
+    phrase_entry = ttk.Entry(frame, width=8)
+    phrase_button = ttk.Button(frame, text="Speak")
+
+    blank_label1 = ttk.Label(frame, text="")
+    blank_label2 = ttk.Label(frame, text="")
+
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=0)
+    num_of_beeps_label.grid(row=1, column=0)
+    freq_label.grid(row=5, column=0)
+    duration_label.grid(row=5, column=1)
+    phrase_label.grid(row=9, column=0)
+
+    num_of_beeps_entry.grid(row=2, column=0)
+    freq_entry.grid(row=6, column=0)
+    duration_entry.grid(row=6, column=1)
+    phrase_entry.grid(row=10, column=0)
+
+    blank_label1.grid(row=4, column=0)
+    blank_label2.grid(row=8, column=0)
+
+    num_of_beeps_button.grid(row=3, column=0)
+    play_button.grid(row=7, column=0)
+    phrase_button.grid(row=11, column=0)
+
+
+    return frame
+
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -295,6 +345,13 @@ def handle_encoderStraight(inches_entry, speed_entry, mqtt_sender):
     i = int(inches_entry.get())
     s = int(speed_entry.get())
     mqtt_sender.send_message('straight_encoder', [i, s])
+
+
+###############################################################################
+# Handlers for Buttons in the BeepsAndTones frame.
+###############################################################################
+
+
 
 
 ###############################################################################
