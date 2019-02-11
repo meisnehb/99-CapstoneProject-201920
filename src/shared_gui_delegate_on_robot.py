@@ -27,6 +27,7 @@ def main():
 class receiver(object):
     def __init__(self):
         self.robot = rosebot.RoseBot()
+        self.is_time_to_stop = False
 
     def forward(self, speedL, speedR):
         self.robot.drive_system.go(speedL, speedR)
@@ -43,5 +44,11 @@ class receiver(object):
     def straight_encoder(self, inches, speed):
         self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
 
+    def quit(self):
+        print("Quit")
+        self.is_time_to_stop = True
+
+    def exit(self):
+        print("Exit")
 
 main()
