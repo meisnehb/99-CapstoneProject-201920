@@ -35,6 +35,18 @@ class receiver(object):
     def stop(self):
         self.robot.drive_system.stop()
 
+    def raise_arm(self):
+        self.robot.arm_and_claw.raise_arm()
+
+    def calibrate_arm(self):
+        self.robot.arm_and_claw.calibrate_arm()
+
+    def arm_pos(self, pos):
+        self.robot.arm_and_claw.move_arm_to_position(pos)
+
+    def lower_arm(self):
+        self.robot.arm_and_claw.lower_arm()
+
     def straight_time(self, seconds, speed):
         self.robot.drive_system.go_straight_for_seconds(seconds, speed)
 
@@ -50,6 +62,8 @@ class receiver(object):
 
     def exit(self):
         print("Exit")
+        quit()
+
 
     def beep_number_of_times(self, n):
         print('BEEP')

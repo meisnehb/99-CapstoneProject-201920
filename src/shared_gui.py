@@ -237,6 +237,10 @@ def get_beeps_tones(window, mqtt_sender):
     play_button.grid(row=7, column=0)
     phrase_button.grid(row=11, column=0)
 
+    # Set the Button callbacks:
+    num_of_beeps_button["command"] = lambda: handle_beep(num_of_beeps_entry, mqtt_sender)
+    play_button["command"] = lambda: handle_tone(freq_entry, duration_entry, mqtt_sender)
+    phrase_button["command"] = lambda: handle_speech(phrase_entry, mqtt_sender)
 
     return frame
 
