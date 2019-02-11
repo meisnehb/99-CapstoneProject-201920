@@ -21,8 +21,7 @@ def main():
     time.sleep(1)  # Time to allow the MQTT setup.
     print()
 
-    while True:
-        time.sleep(0.01)  # Time to allow message processing
+    time.sleep(0.01)  # Time to allow message processing
 
 
 class receiver(object):
