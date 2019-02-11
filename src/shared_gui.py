@@ -350,7 +350,21 @@ def handle_encoderStraight(inches_entry, speed_entry, mqtt_sender):
 # Handlers for Buttons in the BeepsAndTones frame.
 ###############################################################################
 
+def handle_beep(num_of_beeps_entry, mqtt_sender):
+    print()
+    n = int(num_of_beeps_entry.get())
+    mqtt_sender.send_message('beep_number_of_times', [n])
 
+def handle_tone(freq_entry, duration_entry, mqtt_sender):
+    print()
+    f = int(freq_entry.get())
+    d = int(duration_entry.get())
+    mqtt_sender.send_message('tone', [f, d])
+
+def handle_speech(phrase_entry, mqtt_sender):
+    print()
+    p = phrase_entry.get()
+    mqtt_sender.send_message('speech', [p])
 
 
 ###############################################################################
