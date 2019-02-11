@@ -25,8 +25,9 @@ def main():
     # test_lower_arm()
 
     # test_gos()
+    test_proximity()
 
-    real_thing()
+    # real_thing()
 
 
 def test_raise_arm():
@@ -58,6 +59,13 @@ def test_gos():
     robot.drive_system.stop()
     time.sleep(1)
     robot.drive_system.go_straight_for_inches_using_encoder(12, 50)
+
+
+def test_proximity():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_forward_until_distance_is_less_than(7, 50)
+    time.sleep(2)
+    robot.drive_system.go_backward_until_distance_is_greater_than(7, 50)
 
 
 def real_thing():

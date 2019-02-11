@@ -437,9 +437,9 @@ def handle_quit(mqtt_sender):
     """
 
 
-def handle_exit():
+def handle_exit(mqtt_sender):
     print('Exit')
-    handle_quit()
+    handle_quit(mqtt_sender)
     exit()
 
     """
