@@ -146,6 +146,7 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+
 def drive_system_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -159,18 +160,20 @@ def drive_system_frame(window, mqtt_sender):
 
     inches_entry = ttk.Entry(frame, width=8)
     speed_entry = ttk.Entry(frame, width=8)
+    seconds_entry = ttk.Entry(frame, width=8)
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     time_button.grid(row=1, column=0)
-    inches_button.grid(row=1, column=2)
+    inches_button.grid(row=1, column=1)
     encoder_button.grid(row=1, column=2)
 
-    inches_entry.grid()
-    speed_entry.grid()
+    inches_entry.grid(row=0, column=0)
+    speed_entry.grid(row=0, column=1)
+    seconds_entry.grid(row=0, column=2)
 
     # Set the Button callbacks:
-    time_button["command"] = lambda: handle_timeStraight(inches_entry, speed_entry, mqtt_sender)
+    time_button["command"] = lambda: handle_timeStraight(seconds_entry, speed_entry, mqtt_sender)
     inches_button["command"] = lambda: handle_inchesStraight(inches_entry, speed_entry, mqtt_sender)
     encoder_button["command"] = lambda: handle_encoderStraight(inches_entry, speed_entry, mqtt_sender)
 
@@ -257,6 +260,29 @@ def handle_stop(mqtt_sender):
       :type  mqtt_sender:  com.MqttClient
     """
 
+
+###############################################################################
+# Handlers for Buttons in the DriveSystem frame.
+###############################################################################
+def handle_timeStraight(seconds_entry, speed_entry, mqtt_sender):
+    print()
+    i = seconds_entry.get()
+    s = speed_entry.get()
+    mqtt_sender.send_message('straight_time', [i, s])
+
+
+def handle_inchesStraight(inches_entry, speed_entry, mqtt_sender):
+    print()
+    i = inches_entry.get()
+    s = speed_entry.get()
+    mqtt_sender.send_message('straight_inches', [i, s])
+
+
+def handle_encoderStraight(inches_entry, speed_entry, mqtt_sender):
+    print()
+    i = inches_entry.get()
+    s = speed_entry.get()
+    mqtt_sender.send_message('straight_encoder', [i, s])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
