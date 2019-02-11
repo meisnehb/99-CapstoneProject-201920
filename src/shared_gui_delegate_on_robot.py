@@ -32,7 +32,7 @@ class receiver(object):
         self.robot.drive_system.go(speedL, speedR)
 
     def backward(self, speedL, speedR):
-        self.robot.drive_system.go(speedL, speedR)
+        self.forward(speedL, speedR)
 
     def left(self, speedL, speedR):
         self.robot.drive_system.go(speedL, speedR)
