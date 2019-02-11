@@ -60,7 +60,6 @@ def test_gos():
     robot.drive_system.go_straight_for_inches_using_encoder(12, 50)
 
 
-
 def real_thing():
     delegate = shared_gui_delegate_on_robot.receiver()
     mqtt_receiver = com.MqttClient(delegate)
@@ -68,6 +67,8 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
+        if delegate.is_time_to_stop:
+            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
