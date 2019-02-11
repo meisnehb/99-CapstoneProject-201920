@@ -34,5 +34,14 @@ class receiver(object):
     def stop(self):
         self.robot.drive_system.stop()
 
+    def straight_time(self, seconds, speed):
+        self.robot.drive_system.go_straight_for_seconds(seconds, speed)
+
+    def straight_inches(self, inches, speed):
+        self.robot.drive_system.go_straight_for_inches_using_time(inches, speed)
+
+    def straight_encoder(self, inches, speed):
+        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
+
 
 main()
