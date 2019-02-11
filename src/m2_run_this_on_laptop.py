@@ -64,10 +64,10 @@ def get_shared_frames(main_frame, mqtt_sender):
     arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame
+    return teleop_frame, arm_frame, control_frame, drive_system_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     drive_system_frame.grid(row=0, column=1)

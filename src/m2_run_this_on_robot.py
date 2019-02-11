@@ -24,9 +24,9 @@ def main():
     # test_move_arm_position()
     # test_lower_arm()
 
-    test_gos()
+    # test_gos()
 
-    # real_thing()
+    real_thing()
 
 
 def test_raise_arm():
