@@ -174,9 +174,11 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
 
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     print('Backward')
-    l = left_entry_box.get() * -1
-    r = right_entry_box.get() * -1
-    mqtt_sender.send_message("backward", [l, r])
+    l = left_entry_box.get()
+    r = right_entry_box.get()
+    l = int(l) * -1
+    r = int(r) * -1
+    mqtt_sender.send_message("forward", [l, r])
 
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -189,9 +191,10 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
 
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     print("Left")
-    l = left_entry_box.get() * 0.5
+    l = left_entry_box.get()
     r = right_entry_box.get()
-    mqtt_sender.send_message("left", [l, r])
+    l = int(l) * 0.5
+    mqtt_sender.send_message("forward", [l, r])
 
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -205,8 +208,9 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     print("Right")
     l = left_entry_box.get()
-    r = right_entry_box.get() * 0.5
-    mqtt_sender.send_message("right", [l, r])
+    r = right_entry_box.get()
+    r = int(r) * 0.5
+    mqtt_sender.send_message("forward", [l, r])
 
     """
     Tells the robot to move using the speeds in the given entry boxes,
