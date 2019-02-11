@@ -278,22 +278,22 @@ def handle_stop(mqtt_sender):
 ###############################################################################
 def handle_timeStraight(seconds_entry, speed_entry, mqtt_sender):
     print()
-    i = seconds_entry.get()
-    s = speed_entry.get()
-    mqtt_sender.send_message('straight_time', [i, s])
+    sec = int(seconds_entry.get())
+    s = int(speed_entry.get())
+    mqtt_sender.send_message('straight_time', [sec, s])
 
 
 def handle_inchesStraight(inches_entry, speed_entry, mqtt_sender):
     print()
-    i = inches_entry.get()
-    s = speed_entry.get()
+    i = int(inches_entry.get())
+    s = int(speed_entry.get())
     mqtt_sender.send_message('straight_inches', [i, s])
 
 
 def handle_encoderStraight(inches_entry, speed_entry, mqtt_sender):
     print()
-    i = inches_entry.get()
-    s = speed_entry.get()
+    i = int(inches_entry.get())
+    s = int(speed_entry.get())
     mqtt_sender.send_message('straight_encoder', [i, s])
 
 
