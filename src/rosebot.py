@@ -272,9 +272,12 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
     def display_camera_data(self):
         """
-        Displays on the GUI the Blob data of the Blob that the camera sees
+        Print on console the Blob data of the Blob that the camera sees
         (if any).
         """
+        b = self.sensor_system.camera.get_biggest_blob()
+        print(b)
+
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """
@@ -282,6 +285,15 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
+        b = self.sensor_system.camera.get_biggest_blob()
+        self.left_motor.turn_on(speed)
+        while True:
+            if abs(b.center.x - 160) <= 5:
+                if (b.width * b.height) >= area:
+                    self.left_motor.turn_off()
+                    break
+
+
 
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """

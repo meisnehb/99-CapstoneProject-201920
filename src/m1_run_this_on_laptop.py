@@ -29,7 +29,7 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
-    root.title("CSSE 120 Capstone Project, Winter 2018-2019")
+    root.title = ('CSSE 120 CAPSTONE PROJECT, WINTER 18-19')
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
@@ -40,7 +40,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, control_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -50,7 +50,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-
+    grid_frames(teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, control_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -60,16 +60,21 @@ def main():
 
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
+    drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
     arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
+    beeps_tones_frame = shared_gui.get_beeps_tones(main_frame, mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame
+    return teleop_frame, arm_frame, control_frame, drive_system_frame, beeps_tones_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
+                beeps_tones_frame):
     teleop_frame.grid(row=0, column=0)
-    arm_frame.gride(row=1, column=0)
-    control_frame.gride(row=2, column=0)
+    arm_frame.grid(row=1, column=0)
+    drive_system_frame.grid(row=0, column=1)
+    control_frame.grid(row=2, column=0)
+    beeps_tones_frame.grid(row=1, column=1)
 
 
 # -----------------------------------------------------------------------------
