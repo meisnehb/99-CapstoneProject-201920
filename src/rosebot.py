@@ -291,7 +291,7 @@ class DriveSystem(object):
             b = self.sensor_system.camera.get_biggest_blob()
             print(b.center.x, (b.width * b.height))
             if abs(b.center.x - 160) <= 5:
-                if (b.width * b.height) <= area:
+                if (b.width * b.height) >= area:
                     self.left_motor.turn_off()
                     break
 
