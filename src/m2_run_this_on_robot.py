@@ -11,7 +11,6 @@ import time
 import shared_gui_delegate_on_robot
 
 
-
 def main():
     """
     This code, which must run on the EV3 ROBOT:

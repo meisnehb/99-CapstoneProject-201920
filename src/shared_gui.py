@@ -149,7 +149,7 @@ def get_control_frame(window, mqtt_sender):
 
 def get_drive_system_frame(window, mqtt_sender):
     # Construct the frame to return:
-    frame = ttk.Frame(window, padding=10, borderwidth=10, relief="ridge")
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
     # Construct the widgets on the frame:
@@ -247,6 +247,40 @@ def get_beeps_tones(window, mqtt_sender):
 
     return frame
 
+
+def get_sensor_frame(window, mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Sensors and Camera")
+
+    color_label = ttk.Label(frame, text="Color Number:")
+    color_entry = ttk.Entry(frame, width=8)
+    color_button = ttk.Button(frame, text="Color")
+
+    camera_label = ttk.Label(frame, text="Display Camera")
+    camera_button = ttk.Button(frame, text="Camera")
+
+    prox_label = ttk.Label(frame, text="Distance (Inches):")
+    prox_entry = ttk.Entry(frame, width=8)
+    prox_button = ttk.Button(frame, text="Distance")
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    color_label.grid(row=1, column=0)
+    camera_label.grid(row=1, column=1)
+    prox_label.grid(row=1, column=2)
+
+    color_entry.grid(row=2, column=0)
+    prox_entry.grid(row=2, column=2)
+
+    color_button.grid(row=4, column=0)
+    camera_button.grid(row=3, column=1)
+    prox_button.grid(row=4, column=2)
+
+    return frame
 
 ###############################################################################
 ###############################################################################
