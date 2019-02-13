@@ -293,14 +293,19 @@ class DriveSystem(object):
                     self.left_motor.turn_off()
                     break
 
-
-
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """
         Spins counter-clockwise at the given speed until the camera sees an object
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
+        b = self.sensor_system.camera.get_biggest_blob()
+        self.right_motor.turn_on(speed)
+        while True:
+            if abs(b.center.x - 160) <= 5:
+                if (b.width * b.height) >= area:
+                    self.left_motor.turn_off()
+                    break
 
 
 ###############################################################################
