@@ -24,9 +24,10 @@ def main():
     # test_lower_arm()
 
     # test_gos()
-    # test_proximity()
 
-    test_camera()
+    # test_proximity()
+    # test_camera()
+    test_color()
 
     # real_thing()
 
@@ -72,6 +73,11 @@ def test_proximity():
 def test_camera():
     robot = rosebot.RoseBot()
     robot.drive_system.spin_clockwise_until_sees_object(30, 500)
+
+
+def test_color():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_intensity_is_greater_than(20, 50)
 
 
 def real_thing():

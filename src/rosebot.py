@@ -187,7 +187,6 @@ class DriveSystem(object):
                     self.stop()
                     break
 
-
     def go_straight_until_color_is_not(self, color, speed):
         """
         Goes straight at the given speed until the color returned
