@@ -629,8 +629,10 @@ class InfraredProximitySensor(object):
         in inches, where about 39.37 inches (which is 100 cm) means no object
         is within its field of vision.
         """
-        inches_per_cm = 2.54
-        return 48 * inches_per_cm * self.get_distance() / 100
+        cm_per_inches = 2.54
+        distance =(48 / cm_per_inches) * self.get_distance() / 100
+        print("Distance:", distance)
+        return distance
 
 
 ###############################################################################
