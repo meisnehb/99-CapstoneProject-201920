@@ -72,4 +72,17 @@ class receiver(object):
     def speech(self, s):
         print('Phrase')
         self.robot.sound_system.speech_maker.speak(s)
+
+    def color_stop(self, c):
+        self.robot.drive_system.go_straight_until_color_is_not(c)
+
+    def cw_camera(self):
+        self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
+
+    def ccw_camera(self):
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(30, 400)
+
+    def proxy_forward(self, d):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(d)
+
 main()

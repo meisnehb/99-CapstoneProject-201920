@@ -256,16 +256,17 @@ def get_sensor_frame(window, mqtt_sender):
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Sensors and Camera")
 
-    color_label = ttk.Label(frame, text="Color Number:")
+    color_label = ttk.Label(frame, text="Color Number/Name:")
     color_entry = ttk.Entry(frame, width=8)
-    color_button = ttk.Button(frame, text="Color")
+    color_button = ttk.Button(frame, text="Forward")
 
-    camera_label = ttk.Label(frame, text="Display Camera")
-    camera_button = ttk.Button(frame, text="Camera")
+    camera_label = ttk.Label(frame, text="Camera:")
+    cw_button = ttk.Button(frame, text="CW")
+    ccw_button = ttk.Button(frame, text='CCW')
 
     prox_label = ttk.Label(frame, text="Distance (Inches):")
     prox_entry = ttk.Entry(frame, width=8)
-    prox_button = ttk.Button(frame, text="Distance")
+    prox_button = ttk.Button(frame, text="Forward")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
@@ -277,8 +278,15 @@ def get_sensor_frame(window, mqtt_sender):
     prox_entry.grid(row=2, column=2)
 
     color_button.grid(row=4, column=0)
-    camera_button.grid(row=3, column=1)
+    cw_button.grid(row=3, column=1)
+    ccw_button.grid(row=4, column=1)
     prox_button.grid(row=4, column=2)
+
+    # Doing stuff with buttons and boxes
+    color_button['command'] = lambda: handle_color_stop(mqtt_sender, color_entry)
+    cw_button['command'] = lambda: handle_cw_camera(mqtt_sender)
+    ccw_button['command'] = lambda: handle_ccw_camera(mqtt_sender)
+    prox_button['command'] = lambda: handle_proxy_forward(mqtt_sender, prox_entry)
 
     return frame
 
@@ -457,6 +465,27 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
       :type  mqtt_sender:        com.MqttClient
     """
 
+
+###############################################################################
+# Handlers for sensors
+###############################################################################
+def handle_color_stop(mqtt_sender, color_entry):
+    c = color_entry.get()
+    print('Forward until not color:', c)
+    mqtt_sender.send_message('color_stop', [c])
+
+def handle_cw_camera(mqtt_sender):
+    print("Spin clockwise to object")
+    mqtt_sender.send_message('cw_camera')
+
+def handle_ccw_camera(mqtt_sender):
+    print("Spin counter-clockwise to object")
+    mqtt_sender.send_message('ccw_camera')
+
+def handle_proxy_forward(mqtt_sender, proxy_entry):
+    d = proxy_entry.get()
+    print("Go forward until:", d, 'inches away')
+    mqtt_sender.send_message('proxy_forward', [d])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
