@@ -291,7 +291,7 @@ class DriveSystem(object):
             print(b.center.x)
             print(b.width * b.height)
             if abs(b.center.x - 160) <= 5:
-                if (b.width * b.height) <= area:
+                if (b.width * b.height) >= area:
                     self.left_motor.turn_off()
                     break
 
