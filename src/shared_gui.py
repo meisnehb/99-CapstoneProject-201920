@@ -291,7 +291,7 @@ def get_sensor_frame(window, mqtt_sender):
     return frame
 
 
-def proximity_tone(window, mqtt_sender):
+def get_proximity_tone_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -308,13 +308,15 @@ def proximity_tone(window, mqtt_sender):
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     freq_label.grid(row=1, column=0)
-    freq_entry.grid(row=2, column=1)
+    freq_entry.grid(row=2, column=0)
     rate_label.grid(row=1, column=2)
     rate_entry.grid(row=2, column=2)
-    forward_button(row=3, column=1)
+    forward_button.grid(row=3, column=1)
 
     # Doing stuff with buttons and boxes
     forward_button['command'] = lambda: handle_proximity_tone(mqtt_sender, freq_entry, rate_entry)
+
+    return frame
 
 def get_proximity_beep_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
