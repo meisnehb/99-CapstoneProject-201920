@@ -290,6 +290,7 @@ def get_sensor_frame(window, mqtt_sender):
 
     return frame
 
+
 def proximity_tone(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -313,7 +314,7 @@ def proximity_tone(window, mqtt_sender):
     forward_button(row=3, column=1)
 
     # Doing stuff with buttons and boxes
-    forward_button['command'] = lambda: handle_(mqtt_sender, freq_entry, rate_entry)
+    forward_button['command'] = lambda: handle_proximity_tone(mqtt_sender, freq_entry, rate_entry)
 
 def get_proximity_beep_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -537,6 +538,12 @@ def handle_proxitmity_beep(mqtt_sender, pause_entry, multiplier_entry):
     m = float(multiplier_entry.get())
     print("Baseline pause is", p, "with multiplier", m)
     mqtt_sender.send_message('proximity_beep', [p, m])
+
+def handle_proximity_tone(mqtt_sender, freq_entry, rate_entry):
+    f = float(freq_entry.get())
+    r = float(rate_entry.get())
+    print('Start frequency is', f, 'rate of change is', r)
+    mqtt_sender.send_message('proxy_tone', [f, r])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
