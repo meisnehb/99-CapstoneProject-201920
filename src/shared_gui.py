@@ -521,18 +521,22 @@ def handle_color_stop(mqtt_sender, color_entry):
     print('Forward until not color:', c)
     mqtt_sender.send_message('color_stop', [c])
 
+
 def handle_cw_camera(mqtt_sender):
     print("Spin clockwise to object")
     mqtt_sender.send_message('cw_camera')
+
 
 def handle_ccw_camera(mqtt_sender):
     print("Spin counter-clockwise to object")
     mqtt_sender.send_message('ccw_camera')
 
+
 def handle_proxy_forward(mqtt_sender, proxy_entry):
     d = float(proxy_entry.get())
     print("Go forward until:", d, 'inches away')
     mqtt_sender.send_message('proxy_forward', [d])
+
 
 ###############################################################################
 # Handlers for sensors
@@ -543,11 +547,13 @@ def handle_proxitmity_beep(mqtt_sender, pause_entry, multiplier_entry):
     print("Baseline pause is", p, "with multiplier", m)
     mqtt_sender.send_message('proximity_beep', [p, m])
 
-def handle_proximity_tone(mqtt_sender, freq_entry, rate_entry):
+
+def m2_handle_proximity_tone(mqtt_sender, freq_entry, rate_entry):
     f = float(freq_entry.get())
     r = float(rate_entry.get())
     print('Start frequency is', f, 'rate of change is', r)
     mqtt_sender.send_message('proxy_tone', [f, r])
+
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
