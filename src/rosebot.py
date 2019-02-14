@@ -178,12 +178,14 @@ class DriveSystem(object):
 
         if type(color) == int:
             while True:
+                print(self.sensor_system.color_sensor.get_color())
                 if self.sensor_system.color_sensor.get_color() == color:
                     self.stop()
                     break
 
         if type(color) == str:
             while True:
+                print(self.sensor_system.color_sensor.get_color_as_name())
                 if self.sensor_system.color_sensor.get_color_as_name() == color:
                     self.stop()
                     break
