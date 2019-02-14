@@ -15,7 +15,7 @@ def main():
     """
     This code, which must run on the EV3 ROBOT:
       1. Makes the EV3 robot to various things.
-      2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
+      2. Communicates via MQTT with the GUI code tphat runs on the LAPTOP.
     """
 
     # test_raise_arm()
@@ -27,9 +27,9 @@ def main():
 
     # test_proximity()
     # test_camera()
-    test_color()
+    # test_color()
 
-    # real_thing()
+    real_thing()
 
 
 def test_raise_arm():
