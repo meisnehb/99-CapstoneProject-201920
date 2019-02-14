@@ -85,7 +85,7 @@ class receiver(object):
     def proxy_forward(self, d):
         self.robot.drive_system.go_forward_until_distance_is_less_than(d, 70)
 
-    def proxy_tone(self, f, r):
+    def m2_proxy_tone(self, f, r):
         self.robot.drive_system.go(50, 50)
         self.robot.sound_system.tone_maker.play_tone(f, 500)
         while True:
@@ -104,7 +104,7 @@ class receiver(object):
         while True:
             dc = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(dc)
-            t = p - (abs((d - dc)/d)*100)*m
+            t = p - (abs((d - dc)/d))*m
             print(t)
             self.robot.sound_system.beeper.beep().wait()
             time.sleep(t)
