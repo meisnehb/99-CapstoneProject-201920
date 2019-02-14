@@ -104,11 +104,11 @@ class receiver(object):
         while True:
             dc = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(dc)
-            t = p - (abs((d - dc)/d))*m
+            t = p - (abs((d - dc)/d)*m)
             print(t)
             self.robot.sound_system.beeper.beep().wait()
             time.sleep(t)
-            if dc <= 2:
+            if dc <= 2.0:
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
                 break
