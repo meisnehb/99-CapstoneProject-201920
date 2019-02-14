@@ -324,14 +324,16 @@ def get_proximity_beep_frame(window, mqtt_sender):
 
     pause_entry = ttk.Entry(frame, width=8)
     multiplier_entry = ttk.Entry(frame, width=8)
-    forward_button = ttk.Button(frame, text='forward')
+    forward_button = ttk.Button(frame, text='Forward')
 
-    frame_label.grid(row=0, column=0)
+    frame_label.grid(row=0, column=1)
     pause_entry.grid(row=1, column=0)
-    multiplier_entry.grid(row=2, column=1)
-    forward_button.grid(row=2, column=0)
+    multiplier_entry.grid(row=1, column=1)
+    forward_button.grid(row=1, column=2)
 
     forward_button['command'] = lambda: handle_proxitmity_beep(mqtt_sender, pause_entry, multiplier_entry)
+
+    return frame
 
 ###############################################################################
 ###############################################################################
