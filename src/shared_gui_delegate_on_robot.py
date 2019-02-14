@@ -85,4 +85,8 @@ class receiver(object):
     def proxy_forward(self, d):
         self.robot.drive_system.go_forward_until_distance_is_less_than(d, 70)
 
+    def proxy_tone(self):
+        self.robot.sound_system.tone_maker.play_tone()
+
+
 main()
