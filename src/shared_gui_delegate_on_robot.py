@@ -87,11 +87,11 @@ class receiver(object):
 
     def proxy_tone(self, f, r):
         self.robot.drive_system.go(50, 50)
-        self.robot.sound_system.tone_maker.play_tone(f, 1000)
+        self.robot.sound_system.tone_maker.play_tone(f, 500)
         while True:
             dis = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(dis)
-            t = f + (r*dis)
+            t = f + (r*(1/(dis+0.1)))
             self.robot.sound_system.tone_maker.play_tone(t, 1000)
             if dis <= 1:
                 self.robot.drive_system.stop()
@@ -104,7 +104,7 @@ class receiver(object):
         while True:
             dc = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(dc)
-            t = p - (abs((d - dc)/d))*m
+            t = p - (abs((d - dc)/d)*100)*m
             print(t)
             self.robot.sound_system.beeper.beep().wait()
             if dc <= 2:
