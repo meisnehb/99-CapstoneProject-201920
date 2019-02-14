@@ -301,7 +301,7 @@ def proximity_beep(window, mqtt_sender):
 
     frame_label.grid()
     pause_entry.grid(row=1, column=0)
-    forward_button.drid(row)
+    forward_button.grid(row=2, column=0)
 
 ###############################################################################
 ###############################################################################
