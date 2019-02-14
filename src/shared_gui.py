@@ -496,7 +496,7 @@ def handle_ccw_camera(mqtt_sender):
     mqtt_sender.send_message('ccw_camera')
 
 def handle_proxy_forward(mqtt_sender, proxy_entry):
-    d = proxy_entry.get()
+    d = float(proxy_entry.get())
     print("Go forward until:", d, 'inches away')
     mqtt_sender.send_message('proxy_forward', [d])
 

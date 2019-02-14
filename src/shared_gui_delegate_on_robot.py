@@ -74,7 +74,7 @@ class receiver(object):
         self.robot.sound_system.speech_maker.speak(s)
 
     def color_stop(self, c):
-        self.robot.drive_system.go_straight_until_color_is_not(c, 70)
+        self.robot.drive_system.go_straight_until_color_is(c, 30)
 
     def cw_camera(self):
         self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
@@ -83,6 +83,6 @@ class receiver(object):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(30, 400)
 
     def proxy_forward(self, d):
-        self.robot.drive_system.go_forward_until_distance_is_less_than(d)
+        self.robot.drive_system.go_forward_until_distance_is_less_than(d, 70)
 
 main()
