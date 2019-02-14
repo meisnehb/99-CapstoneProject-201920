@@ -290,18 +290,22 @@ def get_sensor_frame(window, mqtt_sender):
 
     return frame
 
-def proximity_beep(window, mqtt_sender):
+def get_proximity_beep_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
     frame_label = ttk.Label(frame, text="Beep Proximity")
 
     pause_entry = ttk.Entry(frame, width=8)
+    multiplier_entry = ttk.Entry(frame, width=8)
     forward_button = ttk.Button(frame, text='forward')
 
-    frame_label.grid()
+    frame_label.grid(row=0, column=0)
     pause_entry.grid(row=1, column=0)
+    multiplier_entry.grid(row=2, column=1)
     forward_button.grid(row=2, column=0)
+
+    forward_button['command'] = lambda: handle_proxitmity_beep(mqtt_sender, pause_entry, multiplier_entry)
 
 ###############################################################################
 ###############################################################################
@@ -499,6 +503,15 @@ def handle_proxy_forward(mqtt_sender, proxy_entry):
     d = float(proxy_entry.get())
     print("Go forward until:", d, 'inches away')
     mqtt_sender.send_message('proxy_forward', [d])
+
+###############################################################################
+# Handlers for sensors
+###############################################################################
+def handle_proxitmity_beep(mqtt_sender, pause_entry, multiplier_entry):
+    p = float(pause_entry.get())
+    m = float(multiplier_entry.get())
+    print("Baseline pause is", p, "with multiplier", m)
+    mqtt_sender.send_message('proximity_beep', [p, m])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
