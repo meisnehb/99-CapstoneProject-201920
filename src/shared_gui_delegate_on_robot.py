@@ -107,12 +107,11 @@ class receiver(object):
             t = p - (abs((d - dc)/d)*100)*m
             print(t)
             self.robot.sound_system.beeper.beep().wait()
+            time.sleep(t)
             if dc <= 2:
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
                 break
-            time.sleep(t)
-
 
 
 main()
