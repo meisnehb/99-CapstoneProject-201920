@@ -88,5 +88,7 @@ class receiver(object):
     def proxy_tone(self):
         self.robot.sound_system.tone_maker.play_tone()
 
+    def proximity_beep(self, p, m):
+        self.robot.
 
 main()
