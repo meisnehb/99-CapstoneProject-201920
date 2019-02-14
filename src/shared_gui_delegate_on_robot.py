@@ -91,9 +91,10 @@ class receiver(object):
     def proximity_beep(self, p, m):
         self.robot.drive_system.go(70, 70)
         while True:
-            self.robot.sound_system.beeper.beep(p)
             d = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(d)
+
+            self.robot.sound_system.beeper.beep().wait(p)
             p = p - (m * d)
             if d <= 2:
                 self.robot.drive_system.stop()
