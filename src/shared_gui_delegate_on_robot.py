@@ -74,7 +74,7 @@ class receiver(object):
         self.robot.sound_system.speech_maker.speak(s)
 
     def color_stop(self, c):
-        self.robot.drive_system.go_straight_until_color_is_not(c)
+        self.robot.drive_system.go_straight_until_color_is_not(c, 70)
 
     def cw_camera(self):
         self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
