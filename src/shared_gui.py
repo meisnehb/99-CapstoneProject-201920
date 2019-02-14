@@ -290,6 +290,19 @@ def get_sensor_frame(window, mqtt_sender):
 
     return frame
 
+def proximity_beep(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="Beep Proximity")
+
+    pause_entry = ttk.Entry(frame, width=8)
+    forward_button = ttk.Button(frame, text='forward')
+
+    frame_label.grid()
+    pause_entry.grid(row=1, column=0)
+    forward_button.drid(row)
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
