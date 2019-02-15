@@ -26,3 +26,5 @@ def gui_sender():
         time.sleep(0.01)
         if delegate.is_time_to_stop:
             break
+
+def
