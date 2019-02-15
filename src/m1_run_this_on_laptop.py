@@ -86,6 +86,9 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
     sensor_frame.grid(row=2, column=1)
     proximity_frame.grid(row=0, column=2)
 
+def m1_frame(window, mqtt_sender):
+
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
