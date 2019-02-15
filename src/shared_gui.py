@@ -581,14 +581,10 @@ def handle_exit(mqtt_sender):
     """
 
 
-
-
-
-
 ###############################################################################
 # M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
 ###############################################################################
-def get_marching_frame(window, mqtt_sender):
+def get_m2_marching_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -600,8 +596,22 @@ def get_marching_frame(window, mqtt_sender):
     column_right_button = ttk.Button(frame, text="Column Right")
     halt_button = ttk.Button(frame, text="Halt")
 
+    # Grid the widgets
+    frame_label.grid(row=0, column=1)
+    forward_march_button.grid(row=3, column=1)
+    column_left_button.grid(row=4, column=0)
+    halt_button.grid(row=4, column=1)
+    column_right_button.grid(row=4, column=2)
+
+    # Set the button callbacks:
+    forward_march_button["command"] = lambda: handle_m2_forward_march(mqtt_sender)
 
 
 def handle_m2_forward_march(mqtt_sender):
     print('Forward Harch!')
     mqtt_sender.send_message('m2_forward_march')
+
+
+def handle_m2_double_time(mqtt_sender):
+    print('Double Time')
+    mqtt_sender.send_message('m2_double_time')
