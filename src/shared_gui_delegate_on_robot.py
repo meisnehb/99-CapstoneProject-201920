@@ -113,7 +113,109 @@ class receiver(object):
                 self.robot.arm_and_claw.raise_arm()
                 break
 
+###############################################################################
+# M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
+###############################################################################
+    def song(self):
 
+        NOTE_A4 = 440
+        NOTE_B4 = 494
+        NOTE_CS5 = 554
+        NOTE_E5 = 659
+        NOTE_FS5 = 740
+        NOTE_GS5 = 831
+
+        quarter_note = 500
+        eighth_note = 250
+
+        notes = [NOTE_A4, NOTE_B4, NOTE_CS5, NOTE_E5, NOTE_FS5, NOTE_GS5, NOTE_FS5, NOTE_E5, NOTE_CS5, NOTE_B4]
+
+        self.robot.sound_system.tone_maker.play_tone(notes[0], quarter_note)
+        self.robot.sound_system.tone_maker.play_tone(notes[1], quarter_note)
+        self.robot.sound_system.tone_maker.play_tone(notes[2], quarter_note)
+        self.robot.sound_system.tone_maker.play_tone(notes[4], quarter_note)
+        self.robot.sound_system.tone_maker.play_tone(notes[5], quarter_note)
+
+        self.robot.sound_system.tone_maker.play_tone(notes[6], eighth_note)
+
+        self.robot.sound_system.tone_maker.play_tone(notes[7], quarter_note)
+        self.robot.sound_system.tone_maker.play_tone(notes[8], quarter_note)
+        self.robot.sound_system.tone_maker.play_tone(notes[9], 1500)
+        self.robot.sound_system.tone_maker.play_tone(notes[10], 1500)
+
+    def forward_march(self):
+        self.robot.drive_system.go(50, 50)
+
+        while True:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.sound_system.speech_maker('safety')
+                break
+
+    def paces_forward(self, paces):
+        self.robot.drive_system.go_straight_for_inches_using_encoder(paces, 50)
+
+    def face(self, direction):
+        if direction == 'right':
+            self.robot.drive_system.left_motor.turn_on(50)
+            time.sleep(2)
+            self.robot.drive_system.stop()
+        elif direction == 'left':
+            self.robot.drive_system.right_motor.turn_on(50)
+            time.sleep(2)
+            self.robot.drive_system.stop()
+        elif direction == 'about':
+            self.robot.drive_system.left_motor.turn_on(50)
+            time.sleep(4)
+            self.robot.drive_system.stop()
+
+    def halt(self):
+        self.robot = rosebot.RoseBot()
+        self.robot.drive_system.stop()
+
+    def cover(self):
+        self.robot = rosebot.RoseBot()
+        self.robot.drive_system.right_motor.turn_on(70)
+        time.sleep(0.3)
+        self.robot.drive_system.right_motor.turn_off()
+        self.robot.drive_system.left_motor.turn_on(70)
+        time.sleep(0.3)
+        self.robot.drive_system.left_motor.turn_off()
+
+    def column(self, direction):
+
+        if direction == 'right':
+            self.robot.drive_system.right_motor.turn_off()
+            time.sleep(2)
+            self.robot.drive_system.right_motor.turn_on(50)
+        elif direction == 'left':
+            self.robot.drive_system.left_motor.turn_off()
+            time.sleep(2)
+            self.robot.drive_system.left_motor.turn_on(50)
+
+    def column_half(self, direction):
+        robot = rosebot.RoseBot()
+
+        if direction == 'right':
+            robot.drive_system.right_motor.turn_off()
+            time.sleep(1)
+            robot.drive_system.right_motor.turn_on(50)
+        elif direction == 'left':
+            robot.drive_system.left_motor.turn_off()
+            time.sleep(1)
+            robot.drive_system.left_motor.turn_on(50)
+
+    def stretch(self):
+        self.robot.arm_and_claw.raise_arm()
+        self.robot.drive_system.right_motor.turn_on(4, 100)
+
+    def recover(self):
+        self.robot.arm_and_claw.lower_arm()
+        self.robot.sound_system.speech_maker("Air Power")
+
+    def hua(self):
+        self.robot.sound_system.speech_maker('hoo ah')
 
 
 ###############################################################################
