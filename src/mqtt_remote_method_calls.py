@@ -142,8 +142,8 @@ class MqttClient(object):
         """
         self.client = mqtt.Client()
         self.delegate = delegate
-        self.subscription_topic_name = "Hannah"
-        self.publish_topic_name = "Robot09"
+        self.subscription_topic_name = None
+        self.publish_topic_name = None
 
     def connect_to_ev3(self, mqtt_broker_ip_address="mosquitto.csse.rose-hulman.edu", lego_robot_number=LEGO_NUMBER):
         """

@@ -314,9 +314,10 @@ def get_proximity_tone_frame(window, mqtt_sender):
     forward_button.grid(row=3, column=1)
 
     # Doing stuff with buttons and boxes
-    forward_button['command'] = lambda: handle_proximity_tone(mqtt_sender, freq_entry, rate_entry)
+    forward_button['command'] = lambda: m2_handle_proximity_tone(mqtt_sender, freq_entry, rate_entry)
 
     return frame
+
 
 def get_proximity_beep_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -333,7 +334,7 @@ def get_proximity_beep_frame(window, mqtt_sender):
     multiplier_entry.grid(row=1, column=1)
     forward_button.grid(row=1, column=2)
 
-    forward_button['command'] = lambda: handle_proxitmity_beep(mqtt_sender, pause_entry, multiplier_entry)
+    forward_button['command'] = lambda: handle_proximity_beep(mqtt_sender, pause_entry, multiplier_entry)
 
     return frame
 
@@ -541,7 +542,7 @@ def handle_proxy_forward(mqtt_sender, proxy_entry):
 ###############################################################################
 # Handlers for sensors
 ###############################################################################
-def handle_proxitmity_beep(mqtt_sender, pause_entry, multiplier_entry):
+def handle_proximity_beep(mqtt_sender, pause_entry, multiplier_entry):
     p = float(pause_entry.get())
     m = float(multiplier_entry.get())
     print("Baseline pause is", p, "with multiplier", m)
@@ -552,7 +553,7 @@ def m2_handle_proximity_tone(mqtt_sender, freq_entry, rate_entry):
     f = float(freq_entry.get())
     r = float(rate_entry.get())
     print('Start frequency is', f, 'rate of change is', r)
-    mqtt_sender.send_message('proxy_tone', [f, r])
+    mqtt_sender.send_message('m2_proxy_tone', [f, r])
 
 
 ###############################################################################
@@ -579,3 +580,28 @@ def handle_exit(mqtt_sender):
       :type mqtt_sender: com.MqttClient
     """
 
+
+
+
+
+
+###############################################################################
+# M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
+###############################################################################
+def get_marching_frame(window, mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Marching")
+    forward_march_button = ttk.Button(frame, text="Forward March")
+    column_left_button = ttk.Button(frame, text="Column Left")
+    column_right_button = ttk.Button(frame, text="Column Right")
+    halt_button = ttk.Button(frame, text="Halt")
+
+
+
+def handle_m2_forward_march(mqtt_sender):
+    print('Forward Harch!')
+    mqtt_sender.send_message('m2_forward_march')

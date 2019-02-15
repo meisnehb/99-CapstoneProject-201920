@@ -114,4 +114,23 @@ class receiver(object):
                 break
 
 
+###############################################################################
+# M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
+###############################################################################
+    # def m2_af_song(self):
+        # self.robot.sound_system.tone_maker.play_tone_sequence()
+
+    def m2_forward_march(self):
+        self.robot.sound_system.speech_maker.speak('Forward Harch!')
+        time.sleep(1)
+        self.robot.drive_system.go(50, 50)
+
+    def m2_double_time(self):
+        self.robot.sound_system.speech_maker.speak('Double Time!')
+        time.sleep(1)
+        self.robot.drive_system.go(100, 100)
+
+
+
+
 main()
