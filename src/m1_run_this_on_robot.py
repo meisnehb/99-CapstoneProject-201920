@@ -9,6 +9,7 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
+import m1_extra
 
 
 
@@ -69,14 +70,12 @@ def test_proximity():
 
 
 def real_thing():
-    delegate = shared_gui_delegate_on_robot.receiver()
+    delegate = m1_extra.air_power()
     mqtt_receiver = com.MqttClient(delegate)
     mqtt_receiver.connect_to_pc()
 
     while True:
         time.sleep(0.01)
-        if delegate.is_time_to_stop:
-            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
