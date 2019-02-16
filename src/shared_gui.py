@@ -757,21 +757,21 @@ def get_m2_sensor_frame(window, mqtt_sender):
     find_button = ttk.Button(frame, text="Find Object")
     inches_label = ttk.Label(frame, text="How Far is the Object?")
     color_label = ttk.Label(frame, text="What Color Do You Want?")
-    inches_entry = ttk.Entry(frame, width=8)
-    color_entry = ttk.Entry(frame, width=8)
+    inch_entry = ttk.Entry(frame, width=8)
+    c_entry = ttk.Entry(frame, width=8)
 
     # Grid the widgets
     frame_label.grid(row=0, column=1)
     color_button.grid(row=5, column=0)
     find_button.grid(row=5, column=2)
     color_label.grid(row=2, column=0)
-    inches_entry.grid(row=4, column=2)
+    inch_entry.grid(row=4, column=2)
     inches_label.grid(row=2, column=2)
-    color_entry.grid(row=4, column=0)
+    c_entry.grid(row=4, column=0)
 
     # Set the button callbacks:
-    color_button["command"] = lambda: handle_m2_color_sense(mqtt_sender, color_entry)
-    find_button["command"] = lambda: handle_m2_find_object(mqtt_sender, inches_entry)
+    color_button["command"] = lambda: handle_m2_color_sense(mqtt_sender, c_entry)
+    find_button["command"] = lambda: handle_m2_find_object(mqtt_sender, inch_entry)
 
 
     return frame
@@ -822,13 +822,13 @@ def handle_m2_airmans_creed(mqtt_sender):
     mqtt_sender.send_message('m2_airmans_creed')
 
 
-def handle_m2_color_sense(color_entry, mqtt_sender):
+def handle_m2_color_sense(mqtt_sender, c_entry):
     print('Finding Colors')
-    c = color_entry.get()
+    c = c_entry.get()
     mqtt_sender.send_message('m2_color_sense', [c])
 
 
-def handle_m2_find_object(inches_entry, mqtt_sender):
+def handle_m2_find_object(mqtt_sender, inch_entry):
     print('Finding Object')
-    i = int(inches_entry.get())
+    i = int(inch_entry.get())
     mqtt_sender.send_message('m2_find_object', [i])

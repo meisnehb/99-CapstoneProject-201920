@@ -94,7 +94,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
 def my_grid_frames(m2_marching_frame, m2_salute_frame, m2_af_morale_frame, m2_sensor_frame):
     m2_marching_frame.grid(row=0, column=0)
     m2_salute_frame.grid(row=0, column=1)
-    m2_af_morale_frame.grid(row=1, column=0)
+    m2_af_morale_frame.grid(row=1, column=1)
     m2_sensor_frame.grid(row=1, column=0)
 
 

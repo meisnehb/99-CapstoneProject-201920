@@ -317,9 +317,9 @@ class receiver(object):
     def m2_find_object(self, i):
         self.robot.drive_system.go_straight_for_inches_using_encoder(i, 50)
         time.sleep(0.5)
-        self.robot.drive_system.spin_counterclockwise_until_sees_object(50, 500)
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(50, 400)
         time.sleep(0.5)
-        self.robot.drive_system.go_forward_until_distance_is_less_than(3, 50)
+        self.robot.drive_system.go_forward_until_distance_is_less_than(1, 50)
         time.sleep(0.5)
         self.robot.arm_and_claw.raise_arm()
 
