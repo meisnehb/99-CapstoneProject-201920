@@ -617,13 +617,16 @@ def get_m1_frame(window, mqtt_sender):
     hua_button.grid(row=2, column=2)
 
     return frame
-def image(window, mqtt_sender):
+
+def get_image(window, mqtt_sender):
     # Background Image
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+
     path = "C:/Users/meisnehb/pictures/ROTC/airforce.png"
     img = ImageTk.PhotoImage(Image.open(path))
     panel = ttk.Label(window, image=img)
+    panel.grid()
 
-    panel.pack()
 
 
 def handle_halt(mqtt_sender, main_entry):
