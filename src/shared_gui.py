@@ -621,6 +621,8 @@ def get_m2_salute_frame(window, mqtt_sender):
     present_arms_button.grid(row=3, column=0)
     order_arms_button.grid(row=3, column=3)
 
+    # Button Callbacks
+
 
 def handle_m2_forward_march(mqtt_sender):
     print('Forward Harch!')
