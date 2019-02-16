@@ -11,6 +11,8 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
+import PIL
+from PIL import ImageTk, Image
 
 
 def main():
@@ -29,7 +31,6 @@ def main():
     # The root TK object for the GUI:
     root = tkinter.Tk()
     root.title("AFROTC Simulator")
-
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
@@ -55,6 +56,7 @@ def main():
     # grid_frames(teleop_frame, drive_system_frame, beeps_tones_frame,
     #             arm_frame, control_frame, sensor_frame, proximity_frame)
     grid_my_frames(m1_frame)
+    get_image()
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -86,6 +88,16 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
 
 def grid_my_frames(m1_frame):
     m1_frame.grid()
+
+def get_image():
+    window = tkinter.Tk()
+    window.geometry("300x300")
+    # Background Image
+    path = "C:/Users/meisnehb/pictures/ROTC/airforce.png"
+    img = ImageTk.PhotoImage(Image.open(path))
+    panel = tkinter.Label(window, image=img)
+    panel.pack(side='top', fill='both', expand='no')
+    window.mainloop()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
