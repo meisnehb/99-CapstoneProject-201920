@@ -11,6 +11,7 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
+from PIL import ImageTk, Image
 
 
 def main():
@@ -27,66 +28,59 @@ def main():
 
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
-    # -------------------------------------------------------------------------
-    root = tkinter.Tk()
-    root.title = ('CSSE 120 CAPSTONE PROJECT, WINTER 18-19')
+
+    shared_gui.get_m1_frame(mqtt_sender)
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
-    main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
-    main_frame.grid()
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, \
-    control_frame, sensor_frame = get_shared_frames(main_frame, mqtt_sender)
+    # teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, \
+    # control_frame, sensor_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
-    proximity_frame = get_individual_frames(main_frame, mqtt_sender)
+    # proximity_frame = get_individual_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, drive_system_frame, beeps_tones_frame,
-                arm_frame, control_frame, sensor_frame, proximity_frame)
+    # grid_frames(teleop_frame, drive_system_frame, beeps_tones_frame,
+    #             arm_frame, control_frame, sensor_frame, proximity_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
-    root.mainloop()
+
+# def get_shared_frames(main_frame, mqtt_sender):
+#     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
+#     drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
+#     arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
+#     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
+#     beeps_tones_frame = shared_gui.get_beeps_tones(main_frame, mqtt_sender)
+#     sensor_frame = shared_gui.get_sensor_frame(main_frame, mqtt_sender)
+#
+#     return teleop_frame, arm_frame, control_frame, drive_system_frame, beeps_tones_frame, sensor_frame
+
+# def get_individual_frames(main_frame, mqtt_sender):
+#     #proximity_beep_frame = shared_gui.get_proximity_beep_frame(main_frame, mqtt_sender)
+#     pass
 
 
-def get_shared_frames(main_frame, mqtt_sender):
-    teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
-    drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
-    arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
-    control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
-    beeps_tones_frame = shared_gui.get_beeps_tones(main_frame, mqtt_sender)
-    sensor_frame = shared_gui.get_sensor_frame(main_frame, mqtt_sender)
+# def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
+#                 beeps_tones_frame, sensor_frame, proximity_frame, m1_frame):
+    # teleop_frame.grid(row=0, column=0)
+    # arm_frame.grid(row=1, column=0)
+    # drive_system_frame.grid(row=0, column=1)
+    # control_frame.grid(row=2, column=0)
+    # beeps_tones_frame.grid(row=1, column=1)
+    # sensor_frame.grid(row=2, column=1)
+    # proximity_frame.grid(row=0, column=2)
 
-    return teleop_frame, arm_frame, control_frame, drive_system_frame, beeps_tones_frame, sensor_frame
-
-def get_individual_frames(main_frame, mqtt_sender):
-    proximity_beep_frame = shared_gui.get_proximity_beep_frame(main_frame, mqtt_sender)
-
-    return proximity_beep_frame
-
-
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
-                beeps_tones_frame, sensor_frame, proximity_frame):
-    teleop_frame.grid(row=0, column=0)
-    arm_frame.grid(row=1, column=0)
-    drive_system_frame.grid(row=0, column=1)
-    control_frame.grid(row=2, column=0)
-    beeps_tones_frame.grid(row=1, column=1)
-    sensor_frame.grid(row=2, column=1)
-    proximity_frame.grid(row=0, column=2)
-
-def m1_frame(window, mqtt_sender):
 
 
 

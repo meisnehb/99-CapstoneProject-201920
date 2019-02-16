@@ -244,6 +244,4 @@ class receiver(object):
         time.sleep(1)
         self.robot.drive_system.go(50, 25)
 
-
-
 main()

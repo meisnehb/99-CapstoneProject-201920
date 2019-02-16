@@ -16,6 +16,8 @@
 
 import tkinter
 from tkinter import ttk
+from PIL import ImageTk
+from PIL import Image
 import time
 
 
@@ -580,6 +582,83 @@ def handle_exit(mqtt_sender):
       :type mqtt_sender: com.MqttClient
     """
 
+###############################################################################
+# M1 Sprint 3 Codes (Individual GUI, Tests, Functions)
+###############################################################################
+def get_m1_frame(mqtt_sender):
+    window = tkinter.Tk()
+
+    window.title("AFROTC Simulator")
+    window.geometry("500x500")
+    window.configure(background='white')
+
+    # Background Image
+    path = "C:/Users/meisnehb/pictures/ROTC/airforce.png"
+
+    img = ImageTk.PhotoImage(Image.open(path))
+
+    panel = ttk.Label(window, image=img)
+
+    panel.pack(side="top", fill="both", expand="no")
+
+    # Buttons
+    harch_button = ttk.Button(text="MARCH!")
+    harch_button.place(relx=0.5, rely=.75, anchor='se')
+    harch_button['command'] = lambda: handle_march(mqtt_sender, main_entry)
+
+    halt_button = ttk.Button(text="HALT!")
+    halt_button.place(relx=0.6, rely=.75, anchor='se')
+    halt_button['command'] = lambda: handle_halt(mqtt_sender, main_entry)
+
+    cover_button = ttk.Button(text='COVER!')
+    cover_button.place(relx=0.7, rely=.75, anchor='se')
+    cover_button['command'] = lambda: handle_cover(mqtt_sender)
+
+    hua_button = ttk.Button(text="HUA!")
+    hua_button.place(relx=0.8, rely=.75, anchor='se')
+    hua_button['command'] = lambda: handle_hua(mqtt_sender)
+
+    # Entry Boxes
+    main_entry = ttk.Entry(window)
+    main_entry.pack(side='left', fill='none', expand='no')
+
+    window.mainloop()
+
+def handle_halt(mqtt_sender, main_entry):
+    entry = main_entry.get()
+    print(entry.upper())
+    if entry == 'flight':
+        print(" HALT!")
+        mqtt_sender.send_message('halt')
+        print('FLIGHT HALT WHAT?')
+
+def handle_march(mqtt_sender, main_entry):
+    entry = main_entry.get()
+    print(entry.upper())
+    print(" HARCH!")
+
+    if len(entry) >= 11:                                      # Column Movements
+        if entry[7] == 'l':
+            mqtt_sender.send_message('column', 'left')
+        elif entry[7] == 'r':
+            mqtt_sender.send_message('column', 'right')
+        elif entry[7] == 'h':
+            if entry[12] == 'r':
+                mqtt_sender.send_message('column_half', 'right')
+            elif entry[12] == 'l':
+                mqtt_sender.send_message('column_half', 'left')
+        elif entry[0] is 'f':                               # Forward
+            mqtt_sender.send_message('forward_march')
+    elif type(entry[0]) == int:                             # Paces Forward
+        mqtt_sender.send_message('paces_forward', entry[0])
+
+def handle_hua(mqtt_sender):
+    print("HUA!")
+    mqtt_sender.send_message('hua')
+
+def handle_cover(mqtt_sender):
+    print("COVER!")
+    mqtt_sender.send_message('cover')
 
 ###############################################################################
 # M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
