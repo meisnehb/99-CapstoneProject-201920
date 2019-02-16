@@ -607,6 +607,21 @@ def get_m2_marching_frame(window, mqtt_sender):
     forward_march_button["command"] = lambda: handle_m2_forward_march(mqtt_sender)
 
 
+def get_m2_salute_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Marching")
+    present_arms_button = ttk.Button(frame, text="Present Arms")
+    order_arms_button = ttk.Button(frame, text="Order Arms")
+
+    # Grid the widgets
+    frame_label.grid(row=0, column=1)
+    present_arms_button.grid(row=3, column=0)
+    order_arms_button.grid(row=3, column=3)
+
+
 def handle_m2_forward_march(mqtt_sender):
     print('Forward Harch!')
     mqtt_sender.send_message('m2_forward_march')

@@ -234,6 +234,15 @@ class receiver(object):
         time.sleep(1)
         self.robot.drive_system.go(100, 100)
 
+    def m2_column_right(self):
+        self.robot.sound_system.speech_maker.speak('Column Right Harch!')
+        time.sleep(1)
+        self.robot.drive_system.go(50, 25)
+
+    def m2_column_left(self):
+        self.robot.sound_system.speech_maker.speak('Column Right Harch!')
+        time.sleep(1)
+        self.robot.drive_system.go(50, 25)
 
 
 
