@@ -4,7 +4,7 @@ import time
 import shared_gui_delegate_on_robot
 
 def main():
-    gui_sender()
+    #gui_sender()
 
 def gui_sender():
     robot = rosebot.RoseBot()

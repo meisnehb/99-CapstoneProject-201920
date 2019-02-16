@@ -11,7 +11,6 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
-from PIL import ImageTk, Image
 
 
 def main():
@@ -28,12 +27,15 @@ def main():
 
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
+    root = tkinter.Tk()
+    root.title("AFROTC Simulator")
 
-    shared_gui.get_m1_frame(mqtt_sender)
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
+    main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
+    main_frame.grid()
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
@@ -41,6 +43,7 @@ def main():
     # teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, \
     # control_frame, sensor_frame = get_shared_frames(main_frame, mqtt_sender)
 
+    m1_frame = get_individual_frames(main_frame, mqtt_sender)
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
@@ -51,11 +54,11 @@ def main():
     # -------------------------------------------------------------------------
     # grid_frames(teleop_frame, drive_system_frame, beeps_tones_frame,
     #             arm_frame, control_frame, sensor_frame, proximity_frame)
-
+    grid_my_frames(m1_frame)
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
-
+    main_frame.mainloop()
 # def get_shared_frames(main_frame, mqtt_sender):
 #     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
 #     drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
@@ -66,13 +69,12 @@ def main():
 #
 #     return teleop_frame, arm_frame, control_frame, drive_system_frame, beeps_tones_frame, sensor_frame
 
-# def get_individual_frames(main_frame, mqtt_sender):
-#     #proximity_beep_frame = shared_gui.get_proximity_beep_frame(main_frame, mqtt_sender)
-#     pass
+def get_individual_frames(main_frame, mqtt_sender):
+    m1_frame = shared_gui.get_m1_frame(main_frame, mqtt_sender)
+    return m1_frame
 
-
-# def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
-#                 beeps_tones_frame, sensor_frame, proximity_frame, m1_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
+                  beeps_tones_frame, sensor_frame, proximity_frame, m1_frame):
     # teleop_frame.grid(row=0, column=0)
     # arm_frame.grid(row=1, column=0)
     # drive_system_frame.grid(row=0, column=1)
@@ -80,9 +82,10 @@ def main():
     # beeps_tones_frame.grid(row=1, column=1)
     # sensor_frame.grid(row=2, column=1)
     # proximity_frame.grid(row=0, column=2)
+    pass
 
-
-
+def grid_my_frames(m1_frame):
+    m1_frame.grid()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

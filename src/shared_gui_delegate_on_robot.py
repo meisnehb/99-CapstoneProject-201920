@@ -117,7 +117,7 @@ class receiver(object):
 # M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
 ###############################################################################
     def song(self):
-
+        robot = rosebot.RoseBot()
         NOTE_A4 = 440
         NOTE_B4 = 494
         NOTE_CS5 = 554
@@ -130,18 +130,16 @@ class receiver(object):
 
         notes = [NOTE_A4, NOTE_B4, NOTE_CS5, NOTE_E5, NOTE_FS5, NOTE_GS5, NOTE_FS5, NOTE_E5, NOTE_CS5, NOTE_B4]
 
-        self.robot.sound_system.tone_maker.play_tone(notes[0], quarter_note)
-        self.robot.sound_system.tone_maker.play_tone(notes[1], quarter_note)
-        self.robot.sound_system.tone_maker.play_tone(notes[2], quarter_note)
-        self.robot.sound_system.tone_maker.play_tone(notes[4], quarter_note)
-        self.robot.sound_system.tone_maker.play_tone(notes[5], quarter_note)
-
-        self.robot.sound_system.tone_maker.play_tone(notes[6], eighth_note)
-
-        self.robot.sound_system.tone_maker.play_tone(notes[7], quarter_note)
-        self.robot.sound_system.tone_maker.play_tone(notes[8], quarter_note)
-        self.robot.sound_system.tone_maker.play_tone(notes[9], 1500)
-        self.robot.sound_system.tone_maker.play_tone(notes[10], 1500)
+        robot.sound_system.tone_maker.play_tone(notes[0], quarter_note).wait()
+        robot.sound_system.tone_maker.play_tone(notes[1], quarter_note).wait()
+        robot.sound_system.tone_maker.play_tone(notes[2], quarter_note).wait()
+        robot.sound_system.tone_maker.play_tone(notes[3], quarter_note).wait()
+        robot.sound_system.tone_maker.play_tone(notes[4], quarter_note).wait()
+        robot.sound_system.tone_maker.play_tone(notes[5], eighth_note).wait()
+        robot.sound_system.tone_maker.play_tone(notes[6], quarter_note).wait()
+        robot.sound_system.tone_maker.play_tone(notes[7], quarter_note).wait()
+        robot.sound_system.tone_maker.play_tone(notes[8], 1500).wait()
+        robot.sound_system.tone_maker.play_tone(notes[9], 1500).wait()
 
     def forward_march(self):
         self.robot.drive_system.go(50, 50)
@@ -212,10 +210,10 @@ class receiver(object):
 
     def recover(self):
         self.robot.arm_and_claw.lower_arm()
-        self.robot.sound_system.speech_maker("Air Power")
+        self.robot.sound_system.speech_maker.speak("Air Power")
 
     def hua(self):
-        self.robot.sound_system.speech_maker('hoo ah')
+        self.robot.sound_system.speech_maker.speak('hoo ah')
 
 
 ###############################################################################

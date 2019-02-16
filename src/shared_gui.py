@@ -585,44 +585,46 @@ def handle_exit(mqtt_sender):
 ###############################################################################
 # M1 Sprint 3 Codes (Individual GUI, Tests, Functions)
 ###############################################################################
-def get_m1_frame(mqtt_sender):
-    window = tkinter.Tk()
+def get_m1_frame(window, mqtt_sender):
+    # window.title("AFROTC Simulator")
+    # window.geometry("500x500")
+    # window.configure(background='white')
 
-    window.title("AFROTC Simulator")
-    window.geometry("500x500")
-    window.configure(background='white')
-
-    # Background Image
-    path = "C:/Users/meisnehb/pictures/ROTC/airforce.png"
-
-    img = ImageTk.PhotoImage(Image.open(path))
-
-    panel = ttk.Label(window, image=img)
-
-    panel.pack(side="top", fill="both", expand="no")
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
 
     # Buttons
-    harch_button = ttk.Button(text="MARCH!")
-    harch_button.place(relx=0.5, rely=.75, anchor='se')
+    harch_button = ttk.Button(frame, text="MARCH!")
     harch_button['command'] = lambda: handle_march(mqtt_sender, main_entry)
 
-    halt_button = ttk.Button(text="HALT!")
-    halt_button.place(relx=0.6, rely=.75, anchor='se')
+    halt_button = ttk.Button(frame, text="HALT!")
+    halt_button.grid(row=10, column=10)
     halt_button['command'] = lambda: handle_halt(mqtt_sender, main_entry)
 
-    cover_button = ttk.Button(text='COVER!')
-    cover_button.place(relx=0.7, rely=.75, anchor='se')
+    cover_button = ttk.Button(frame, text='COVER!')
     cover_button['command'] = lambda: handle_cover(mqtt_sender)
 
-    hua_button = ttk.Button(text="HUA!")
-    hua_button.place(relx=0.8, rely=.75, anchor='se')
+    hua_button = ttk.Button(frame, text="HUA!")
     hua_button['command'] = lambda: handle_hua(mqtt_sender)
 
     # Entry Boxes
-    main_entry = ttk.Entry(window)
-    main_entry.pack(side='left', fill='none', expand='no')
+    main_entry = ttk.Entry(frame)
 
-    window.mainloop()
+    # Grid Everything
+    main_entry.grid()
+    harch_button.grid()
+    cover_button.grid(row=1, column=1)
+    hua_button.grid(row=2, column=2)
+
+    return frame
+def image(window, mqtt_sender):
+    # Background Image
+    path = "C:/Users/meisnehb/pictures/ROTC/airforce.png"
+    img = ImageTk.PhotoImage(Image.open(path))
+    panel = ttk.Label(window, image=img)
+
+    panel.pack()
+
 
 def handle_halt(mqtt_sender, main_entry):
     entry = main_entry.get()
@@ -684,7 +686,6 @@ def get_m2_marching_frame(window, mqtt_sender):
 
     # Set the button callbacks:
     forward_march_button["command"] = lambda: handle_m2_forward_march(mqtt_sender)
-
 
 def get_m2_salute_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
