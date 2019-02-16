@@ -8,16 +8,10 @@ import shared_gui_delegate_on_robot
 
 
 def main():
+    gui_sender()
 
-
-def forward_march():
-    asd
-
-def af_song():
-    asdf
 
 def gui_sender():
-    robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.receiver()
     mqtt_receiver = com.MqttClient(delegate)
     mqtt_receiver.connect_to_pc()
@@ -27,4 +21,5 @@ def gui_sender():
         if delegate.is_time_to_stop:
             break
 
-def
+
+main()

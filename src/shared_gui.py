@@ -676,16 +676,25 @@ def get_m2_marching_frame(window, mqtt_sender):
     column_left_button = ttk.Button(frame, text="Column Left")
     column_right_button = ttk.Button(frame, text="Column Right")
     halt_button = ttk.Button(frame, text="Halt")
+    double_time_button = ttk.Button(frame, text='Double Time')
 
     # Grid the widgets
     frame_label.grid(row=0, column=1)
     forward_march_button.grid(row=3, column=1)
     column_left_button.grid(row=4, column=0)
-    halt_button.grid(row=4, column=1)
+    halt_button.grid(row=5, column=1)
     column_right_button.grid(row=4, column=2)
+    double_time_button.grid(row=4, column=1)
 
     # Set the button callbacks:
     forward_march_button["command"] = lambda: handle_m2_forward_march(mqtt_sender)
+    halt_button["command"] = lambda: handle_m2_halt(mqtt_sender)
+    column_right_button["command"] = lambda: handle_m2_column_right(mqtt_sender)
+    column_left_button["command"] = lambda: handle_m2_column_left(mqtt_sender)
+    double_time_button["command"] = lambda: handle_m2_double_time(mqtt_sender)
+
+    return frame
+
 
 def get_m2_salute_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -702,6 +711,35 @@ def get_m2_salute_frame(window, mqtt_sender):
     order_arms_button.grid(row=3, column=3)
 
     # Button Callbacks
+    present_arms_button["command"] = lambda: handle_m2_present_arms(mqtt_sender)
+    order_arms_button["command"] = lambda: handle_m2_order_arms(mqtt_sender)
+
+    return frame
+
+
+def get_m2_af_morale_frame(window, mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Air Force Morale")
+    af_song_button = ttk.Button(frame, text="AF Song")
+    airmans_creed_button = ttk.Button(frame, text="Airman's Creed")
+
+    blank_label = ttk.Label(frame, text='')
+
+    # Grid the widgets
+    frame_label.grid(row=0, column=1)
+    af_song_button.grid(row=2, column=0)
+    airmans_creed_button.grid(row=2, column=2)
+    blank_label.grid(row=1, column=1)
+
+    # Set the button callbacks:
+    af_song_button["command"] = lambda: handle_m2_af_song(mqtt_sender)
+    airmans_creed_button["command"] = lambda: handle_m2_airmans_creed(mqtt_sender)
+
+    return frame
 
 
 def handle_m2_forward_march(mqtt_sender):
@@ -709,7 +747,41 @@ def handle_m2_forward_march(mqtt_sender):
     mqtt_sender.send_message('m2_forward_march')
 
 
+def handle_m2_halt(mqtt_sender):
+    print('Halt!')
+    mqtt_sender.send_message('m2_halt')
+
+
 def handle_m2_double_time(mqtt_sender):
     print('Double Time')
     mqtt_sender.send_message('m2_double_time')
 
+
+def handle_m2_column_right(mqtt_sender):
+    print('Column Right')
+    mqtt_sender.send_message('m2_column_right')
+
+
+def handle_m2_column_left(mqtt_sender):
+    print('Column Left')
+    mqtt_sender.send_message('m2_column_left')
+
+
+def handle_m2_present_arms(mqtt_sender):
+    print('Present Arms')
+    mqtt_sender.send_message('m2_present_arms')
+
+
+def handle_m2_order_arms(mqtt_sender):
+    print('Order Arms')
+    mqtt_sender.send_message('m2_order_arms')
+
+
+def handle_m2_af_song(mqtt_sender):
+    print('Wild Blue Yonder!')
+    mqtt_sender.send_message('m2_af_song')
+
+
+def handle_m2_airmans_creed(mqtt_sender):
+    print('Airmans Creed')
+    mqtt_sender.send_message('m2_airmans_creed')

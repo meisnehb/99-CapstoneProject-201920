@@ -219,27 +219,97 @@ class receiver(object):
 ###############################################################################
 # M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
 ###############################################################################
-    # def m2_af_song(self):
-        # self.robot.sound_system.tone_maker.play_tone_sequence()
+    def m2_af_song(self):
+        NOTE_C4 = 262
+        NOTE_D4 = 294
+        NOTE_E4 = 330
+        NOTE_F4 = 349
+        NOTE_G4 = 392
+        NOTE_A4 = 440
+        NOTE_B4 = 494
+        NOTE_C5 = 523
+
+        eighth_notes = 250
+        quarter_note = 500
+        triplet_note = 750
+        whole_note = 1000
+
+        notes = [NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5]
+
+        self.robot.sound_system.tone_maker.play_tone(notes[1], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[3], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[3], whole_note).wait()
+
+        self.robot.sound_system.tone_maker.play_tone(notes[2], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[1], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[0], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[1], triplet_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[2], triplet_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[3], triplet_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[3], triplet_note).wait()
+
+        self.robot.sound_system.tone_maker.play_tone(notes[4], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[6], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[6], triplet_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[7], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[6], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[4], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[2], whole_note).wait()
+
+        self.robot.sound_system.tone_maker.play_tone(notes[1], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[3], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[3], whole_note).wait()
+
+        self.robot.sound_system.tone_maker.play_tone(notes[2], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[1], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[0], quarter_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[1], triplet_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[2], triplet_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[3], triplet_note).wait()
+        self.robot.sound_system.tone_maker.play_tone(notes[3], triplet_note).wait()
+
+    def m2_airmans_creed(self):
+        self.robot.sound_system.speech_maker.speak("I AM AN AMERICAN AIRMAN I AM A WARRIOR I HAVE ANSWERED MY NATION’S CALL I AM AN AMERICAN AIRMAN MY MISSION IS TO FLY FIGHT AND WIN I AM FAITHFUL TO A PROUD HERITAGE A TRADITION OF HONOR AND A LEGACY OF VALOR I AM AN AMERICAN AIRMAN GUARDIAN OF FREEDOM AND JUSTICE MY NATION’S SWORD AND SHIELD ITS SENTRY AND AVENGER I DEFEND MY COUNTRY WITH MY LIFE I AM AN AMERICAN AIRMAN WINGMAN LEADER WARRIOR I WILL NEVER LEAVE AN AIRMAN BEHIND I WILL NEVER FALTER AND I WILL NOT FAIL")
+
 
     def m2_forward_march(self):
-        self.robot.sound_system.speech_maker.speak('Forward Harch!')
+        self.robot.sound_system.speech_maker.speak('Forward Harch!').wait()
         time.sleep(1)
         self.robot.drive_system.go(50, 50)
 
     def m2_double_time(self):
-        self.robot.sound_system.speech_maker.speak('Double Time!')
+        self.robot.sound_system.speech_maker.speak('Double Time!').wait()
         time.sleep(1)
         self.robot.drive_system.go(100, 100)
 
     def m2_column_right(self):
-        self.robot.sound_system.speech_maker.speak('Column Right Harch!')
+        self.robot.sound_system.speech_maker.speak('Column Right Harch!').wait()
         time.sleep(1)
-        self.robot.drive_system.go(50, 25)
+        self.robot.drive_system.go(50, 0)
+        time.sleep(2.5)
+        self.robot.drive_system.go(50, 50)
 
     def m2_column_left(self):
-        self.robot.sound_system.speech_maker.speak('Column Right Harch!')
+        self.robot.sound_system.speech_maker.speak('Column Left Harch!').wait()
         time.sleep(1)
-        self.robot.drive_system.go(50, 25)
+        self.robot.drive_system.go(0, 50)
+        time.sleep(2.5)
+        self.robot.drive_system.go(50, 50)
+
+    def m2_halt(self):
+        self.robot.sound_system.speech_maker.speak('Halt!').wait()
+        time.sleep(1)
+        self.robot.drive_system.stop()
+
+    def m2_present_arms(self):
+        self.robot.sound_system.speech_maker.speak('Present Harms!').wait()
+        time.sleep(1)
+        self.robot.arm_and_claw.raise_arm()
+
+    def m2_order_arms(self):
+        self.robot.sound_system.speech_maker.speak('Order Harms!').wait()
+        time.sleep(1)
+        self.robot.arm_and_claw.lower_arm()
+
 
 main()

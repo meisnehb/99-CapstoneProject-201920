@@ -46,12 +46,12 @@ def main():
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
-    m2_marching_frame, m2_salute_frame = get_my_frames(main_frame, mqtt_sender)
+    m2_marching_frame, m2_salute_frame, m2_af_morale_frame = get_my_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    my_grid_frames(m2_marching_frame, m2_salute_frame)
+    my_grid_frames(m2_marching_frame, m2_salute_frame, m2_af_morale_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -73,8 +73,10 @@ def get_shared_frames(main_frame, mqtt_sender):
 
 def get_my_frames(main_frame, mqtt_sender):
     m2_marching_frame = shared_gui.get_m2_marching_frame(main_frame, mqtt_sender)
+    m2_salute_frame = shared_gui.get_m2_salute_frame(main_frame, mqtt_sender)
+    m2_af_morale_frame = shared_gui.get_m2_af_morale_frame(main_frame, mqtt_sender)
 
-    return m2_marching_frame, m2_salute_frame
+    return m2_marching_frame, m2_salute_frame, m2_af_morale_frame
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
@@ -88,9 +90,10 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
     tone_frame.grid(row=0, column=2)
 
 
-def my_grid_frames(m2_marching_frame, m2_salute_frame):
-    m2_marching_frame.grid()
-    m2_salute_frame.grid()
+def my_grid_frames(m2_marching_frame, m2_salute_frame, m2_af_morale_frame):
+    m2_marching_frame.grid(row=0, column=0)
+    m2_salute_frame.grid(row=0, column=1)
+    m2_af_morale_frame.grid(row=1, column=0)
 
 
 # -----------------------------------------------------------------------------
