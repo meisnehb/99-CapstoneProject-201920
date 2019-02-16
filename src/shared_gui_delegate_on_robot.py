@@ -269,8 +269,7 @@ class receiver(object):
         self.robot.sound_system.tone_maker.play_tone(notes[3], triplet_note).wait()
 
     def m2_airmans_creed(self):
-        self.robot.sound_system.speech_maker.speak("I AM AN AMERICAN AIRMAN I AM A WARRIOR I HAVE ANSWERED MY NATION’S CALL I AM AN AMERICAN AIRMAN MY MISSION IS TO FLY FIGHT AND WIN I AM FAITHFUL TO A PROUD HERITAGE A TRADITION OF HONOR AND A LEGACY OF VALOR I AM AN AMERICAN AIRMAN GUARDIAN OF FREEDOM AND JUSTICE MY NATION’S SWORD AND SHIELD ITS SENTRY AND AVENGER I DEFEND MY COUNTRY WITH MY LIFE I AM AN AMERICAN AIRMAN WINGMAN LEADER WARRIOR I WILL NEVER LEAVE AN AIRMAN BEHIND I WILL NEVER FALTER AND I WILL NOT FAIL")
-
+        self.robot.sound_system.speech_maker.speak("I AM AN AMERICAN AIRMAN, I AM A WARRIOR, I HAVE ANSWERED MY NATION’S CALL, I AM AN AMERICAN AIRMAN, MY MISSION IS TO FLY FIGHT AND WIN, I AM FAITHFUL TO A PROUD HERITAGE, A TRADITION OF HONOR, AND A LEGACY OF VALOR, I AM AN AMERICAN AIRMAN, GUARDIAN OF FREEDOM AND JUSTICE, MY NATION’S SWORD AND SHIELD, ITS SENTRY AND AVENGER, I DEFEND MY COUNTRY WITH MY LIFE, I AM AN AMERICAN AIRMAN, WINGMAN, LEADER, WARRIOR, I WILL NEVER LEAVE AN AIRMAN BEHIND, I WILL NEVER FALTER, AND I WILL NOT FAIL")
 
     def m2_forward_march(self):
         self.robot.sound_system.speech_maker.speak('Forward Harch!').wait()
@@ -286,14 +285,14 @@ class receiver(object):
         self.robot.sound_system.speech_maker.speak('Column Right Harch!').wait()
         time.sleep(1)
         self.robot.drive_system.go(50, 0)
-        time.sleep(2.5)
+        time.sleep(3)
         self.robot.drive_system.go(50, 50)
 
     def m2_column_left(self):
         self.robot.sound_system.speech_maker.speak('Column Left Harch!').wait()
         time.sleep(1)
         self.robot.drive_system.go(0, 50)
-        time.sleep(2.5)
+        time.sleep(3)
         self.robot.drive_system.go(50, 50)
 
     def m2_halt(self):
@@ -310,6 +309,21 @@ class receiver(object):
         self.robot.sound_system.speech_maker.speak('Order Harms!').wait()
         time.sleep(1)
         self.robot.arm_and_claw.lower_arm()
+
+    def m2_color_sense(self, c):
+        self.robot.drive_system.go_straight_until_color_is(c, 50)
+        self.robot.sound_system.speech_maker.speak('I have found the Color you are looking for')
+
+    def m2_find_object(self, i):
+        self.robot.drive_system.go_straight_for_inches_using_encoder(i, 50)
+        time.sleep(0.5)
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(50, 500)
+        time.sleep(0.5)
+        self.robot.drive_system.go_forward_until_distance_is_less_than(3, 50)
+        time.sleep(0.5)
+        self.robot.arm_and_claw.raise_arm()
+
+
 
 
 main()

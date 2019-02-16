@@ -662,6 +662,7 @@ def handle_cover(mqtt_sender):
     print("COVER!")
     mqtt_sender.send_message('cover')
 
+
 ###############################################################################
 # M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
 ###############################################################################
@@ -701,7 +702,7 @@ def get_m2_salute_frame(window, mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Marching")
+    frame_label = ttk.Label(frame, text="Salute")
     present_arms_button = ttk.Button(frame, text="Present Arms")
     order_arms_button = ttk.Button(frame, text="Order Arms")
 
@@ -738,6 +739,37 @@ def get_m2_af_morale_frame(window, mqtt_sender):
     # Set the button callbacks:
     af_song_button["command"] = lambda: handle_m2_af_song(mqtt_sender)
     airmans_creed_button["command"] = lambda: handle_m2_airmans_creed(mqtt_sender)
+
+    return frame
+
+
+def get_m2_sensor_frame(window, mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Sensors")
+    color_button = ttk.Button(frame, text="Find Color")
+    find_button = ttk.Button(frame, text="Find Object")
+    inches_label = ttk.Label(frame, text="How Far is the Object?")
+    color_label = ttk.Label(frame, text="What Color Do You Want?")
+    inches_entry = ttk.Entry(frame, width=8)
+    color_entry = ttk.Entry(frame, width=8)
+
+    # Grid the widgets
+    frame_label.grid(row=0, column=1)
+    color_button.grid(row=5, column=0)
+    find_button.grid(row=5, column=2)
+    color_label.grid(row=2, column=0)
+    inches_entry.grid(row=4, column=2)
+    inches_label.grid(row=2, column=2)
+    color_entry.grid(row=4, column=0)
+
+    # Set the button callbacks:
+    color_button["command"] = lambda: handle_m2_color_sense(mqtt_sender, color_entry)
+    find_button["command"] = lambda: handle_m2_find_object(mqtt_sender, inches_entry)
+
 
     return frame
 
@@ -785,3 +817,15 @@ def handle_m2_af_song(mqtt_sender):
 def handle_m2_airmans_creed(mqtt_sender):
     print('Airmans Creed')
     mqtt_sender.send_message('m2_airmans_creed')
+
+
+def handle_m2_color_sense(color_entry, mqtt_sender):
+    print('Finding Colors')
+    c = color_entry.get()
+    mqtt_sender.send_message('m2_color_sense', [c])
+
+
+def handle_m2_find_object(inches_entry, mqtt_sender):
+    print('Finding Object')
+    i = int(inches_entry.get())
+    mqtt_sender.send_message('m2_find_object', [i])
