@@ -28,8 +28,8 @@ class receiver(object):
     def __init__(self):
         self.robot = rosebot.RoseBot()
         self.is_time_to_stop = False
-        self.is_halt = None
-        self.is_column = None
+        self.is_halt = False
+        self.is_column = False
 
     def forward(self, speedL, speedR):
         self.robot.drive_system.go(speedL, speedR)
@@ -146,10 +146,11 @@ class receiver(object):
 
     def forward_march(self):
         self.robot.drive_system.go(50, 50)
-        while self.is_halt != True:
+        while self.is_halt == False:
             if self.robot.sensor_system.color_sensor.get_color_as_name() == 'White':
                 break
             elif self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
+                self.safety()
                 break
             elif self.is_column == True:
                 self.is_column = False

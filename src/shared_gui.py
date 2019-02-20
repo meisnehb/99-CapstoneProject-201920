@@ -673,7 +673,6 @@ def get_m1_descriptions(window, mqtt_sender):
     return frame
 
 def handle_halt(mqtt_sender):
-    shared_gui_delegate_on_robot.receiver.is_halt = True
     print(" HALT!")
     mqtt_sender.send_message('halt')
     print('FLIGHT HALT WHAT?')
@@ -686,7 +685,6 @@ def handle_march(mqtt_sender, main_entry):
         mqtt_sender.send_message('paces_forward', entry[0])
     else:
         if len(entry) >= 11:
-            shared_gui_delegate_on_robot.receiver.is_column = True           # Column Movements
             if entry[0] == 't':
                 print("TO THE REAR")
                 mqtt_sender.send_message('to_the_rear')
