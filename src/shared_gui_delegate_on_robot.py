@@ -370,9 +370,9 @@ class receiver(object):
         time.sleep(0.5)
         self.robot.drive_system.go(0, -20)
         time.sleep(0.8)
-        self.robot.drive_system.go_forward_until_distance_is_less_than(1.5, 50)
+        self.robot.drive_system.go_forward_until_distance_is_less_than(2, 50)
         time.sleep(0.5)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(1.5, 50)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(1, 50)
         time.sleep(1)
         self.robot.arm_and_claw.raise_arm()
 
