@@ -633,6 +633,7 @@ def get_m1_frame(window, mqtt_sender):
     hua_button.grid(row=4, column=1)
     halt_button.grid(row=1, column=3)
     dismissed_button.grid(row=5, column=0)
+    report_button.grid(row=5, column=1)
     meme_button.grid(row=4, column=2)
 
     return frame
@@ -668,38 +669,48 @@ def handle_halt(mqtt_sender, main_entry):
 
 def handle_march(mqtt_sender, main_entry):
     entry = main_entry.get()
-    print(entry.upper())
-    print(" HARCH!")
 
-    if len(entry) >= 11:                                      # Column Movements
-        if entry[7] == 'l':
-            mqtt_sender.send_message('column', 'left')
-        elif entry[7] == 'r':
-            mqtt_sender.send_message('column', 'right')
-        elif entry[0] == 't':
-            mqtt_sender.send_message('to_the_rear')          # To the rear
-        elif entry[7] == 'h':
-            if entry[12] == 'r':
-                mqtt_sender.send_message('column_half', 'right')
-            elif entry[12] == 'l':
-                mqtt_sender.send_message('column_half', 'left')
-        elif entry[0] is 'f':                               # Forward
-            mqtt_sender.send_message('forward_march')
-    elif type(entry[0]) == int:                             # Paces Forward
+    if entry[2] == 'p':                             # Paces Forward
+        print(entry[0], "PACES FORWARD")
         mqtt_sender.send_message('paces_forward', entry[0])
+    else:
+        if len(entry) >= 11:                                      # Column Movements
+            if entry[0] == 't':
+                print("TO THE REAR")
+                mqtt_sender.send_message('to_the_rear')
+            elif entry[7] == 'l':
+                print("COLUMN LEFT")
+                mqtt_sender.send_message('column', 'left')
+            elif entry[7] == 'r':
+                print("COLUMN RIGHT")
+                mqtt_sender.send_message('column', 'right')
+            elif entry[7] == 'h':
+                if entry[12] == 'r':
+                    print("COLUMN HALF RIGHT")
+                    mqtt_sender.send_message('column_half', 'right')
+                elif entry[12] == 'l':
+                    print("COLUMN HALF LEFT")
+                    mqtt_sender.send_message('column_half', 'left')
+        elif entry[0] == 'f':                               # Forward
+            print("FORWARD")
+            mqtt_sender.send_message('forward_march')
+
+    print(" HARCH!")
 
 def handle_face(mqtt_sender, main_entry):
     entry = main_entry.get()
-    print(main_entry.upper())
-    print("HACE!")
 
     if entry[0] == 'r':
+        print("RIGHT")
         mqtt_sender.send_message('face', 'right')
     elif entry[0] == 'l':
+        print("LEFT")
         mqtt_sender.send_message('face', 'left')
     elif entry[0] == 'a':
+        print("ABOUT")
         mqtt_sender.send_message('face', 'about')
 
+    print(" HACE!")
 def handle_hua(mqtt_sender):
     print("HUA!")
     mqtt_sender.send_message('hua')

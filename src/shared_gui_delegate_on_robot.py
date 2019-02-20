@@ -147,7 +147,7 @@ class receiver(object):
 
     def forward_march(self):
         self.robot.drive_system.go(50, 50)
-
+        print("In delegate forward")
         while True:
             if self.robot.sensor_system.color_sensor.get_color_as_name() == 'Grey':
                 self.safety()
@@ -161,6 +161,7 @@ class receiver(object):
 
 
     def paces_forward(self, paces):
+        paces = int(paces)
         self.check_arm()
         self.robot.drive_system.go_straight_for_inches_using_encoder(paces, 50)
 
@@ -245,7 +246,7 @@ class receiver(object):
         if self.report == True:
             self.robot.arm_and_claw.lower_arm()
             self.face('about')
-            self.report == False
+            self.report = False
         else:
             self.dismiss = True
 
