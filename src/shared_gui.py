@@ -674,6 +674,7 @@ def get_m1_descriptions(window, mqtt_sender):
 
 def handle_halt(mqtt_sender):
     shared_gui_delegate_on_robot.receiver.is_halt = True
+    print(shared_gui_delegate_on_robot.receiver.is_halt, "In shared GUI")
     print(" HALT!")
     mqtt_sender.send_message('halt')
     print('FLIGHT HALT WHAT?')
