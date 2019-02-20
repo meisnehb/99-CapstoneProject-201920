@@ -673,9 +673,9 @@ def get_m1_descriptions(window, mqtt_sender):
     return frame
 
 def handle_halt(mqtt_sender):
-    print(" HALT!")
-    mqtt_sender.send_message('halt')
+    print("HALT!")
     print('FLIGHT HALT WHAT?')
+    mqtt_sender.send_message('halt')
 
 def handle_march(mqtt_sender, main_entry):
     entry = main_entry.get()
@@ -745,7 +745,7 @@ def handle_meme(mqtt_sender):
     if dismiss == True:
         mqtt_sender.send_message('song')
     else:
-        "You cannot meme until you have been dismissed."
+        print("You cannot meme until you have been dismissed.")
 
 def handle_dismiss(mqtt_sender):
     print("Cadet robo has been relieved of his duties for the day.")

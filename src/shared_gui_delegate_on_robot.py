@@ -145,9 +145,12 @@ class receiver(object):
         robot.sound_system.tone_maker.play_tone(notes[9], 1500).wait()
 
     def forward_march(self):
-        self.check_arm()
         self.robot.drive_system.go(50, 50)
         while True:
+            if self.is_halt is True:
+                self.robot.drive_system.stop()
+                self.is_halt = False
+                break
             if self.robot.sensor_system.color_sensor.get_color_as_name() == 'White':
                 self.safety()
                 break
@@ -157,18 +160,12 @@ class receiver(object):
             elif self.is_column == True:
                 self.is_column = False
                 break
-            elif self.is_halt == True:
-                self.robot.drive_system.stop()
-                break
-
 
     def paces_forward(self, paces):
         paces = int(paces)
-        self.check_arm()
         self.robot.drive_system.go_straight_for_inches_using_encoder(paces, 50)
 
     def face(self, direction):
-        self.check_arm()
         if direction == 'right':
             self.robot.drive_system.left_motor.turn_on(50)
             self.robot.drive_system.right_motor.turn_on(-50)
@@ -186,7 +183,10 @@ class receiver(object):
             self.robot.drive_system.stop()
 
     def halt(self):
-        self.robot.drive_system.stop()
+        print(self.is_halt)
+        self.is_halt = True
+        print(self.is_halt)
+
 
     def cover(self):
         self.robot = rosebot.RoseBot()
@@ -198,6 +198,7 @@ class receiver(object):
         self.robot.drive_system.left_motor.turn_off()
 
     def column(self, direction):
+        self.is_column = True
         if direction == 'right':
             self.robot.drive_system.right_motor.turn_off()
             time.sleep(2.75)
@@ -208,6 +209,7 @@ class receiver(object):
             self.forward_march()
 
     def column_half(self, direction):
+        self.is_column = True
         if direction == 'right':
             self.robot.drive_system.right_motor.turn_off()
             time.sleep(1.325)
@@ -222,18 +224,14 @@ class receiver(object):
 
     def safety(self):
         self.robot.drive_system.stop()
-        self.robot.arm_and_claw.raise_arm()
-        self.robot.sound_system.speech_maker.speak("safety")
+        self.robot.sound_system.speech_maker.speak("Safety")
 
     def report(self):
         self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
         self.robot.drive_system.go_forward_until_distance_is_less_than(4, 65)
         self.robot.arm_and_claw.raise_arm()
+        self.robot.arm_and_claw.lower_arm()
         self.robot.sound_system.speech_maker.speak("cadet robo reports in as ordered")
-
-    def check_arm(self):
-        if self.robot.sensor_system.touch_sensor.is_pressed() == True:
-            self.robot.arm_and_claw.lower_arm()
 
     def to_the_rear(self):
         self.robot.drive_system.right_motor.turn_off()
@@ -241,8 +239,7 @@ class receiver(object):
         self.forward_march()
 
     def find_superior_branch(self):
-        self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
-        self.robot.sound_system.speech_maker.speak("This is the superior branch.")
+        self.robot.sound_system.speech_maker.speak("Air Force of Course")
         self.robot.sound_system.speech_maker.speak("Air Power")
 
 ###############################################################################
