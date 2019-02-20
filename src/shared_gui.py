@@ -597,8 +597,10 @@ def get_m1_frame(window, mqtt_sender):
     harch_button = ttk.Button(frame, text="MARCH!")
     harch_button['command'] = lambda: handle_march(mqtt_sender, main_entry)
 
+    face_button = ttk.Button(frame, text="FACE!")
+    face_button['command'] = lambda: handle_face(mqtt_sender, main_entry)
+
     halt_button = ttk.Button(frame, text="HALT!")
-    halt_button.grid(row=10, column=10)
     halt_button['command'] = lambda: handle_halt(mqtt_sender, main_entry)
 
     cover_button = ttk.Button(frame, text='COVER!')
@@ -607,27 +609,54 @@ def get_m1_frame(window, mqtt_sender):
     hua_button = ttk.Button(frame, text="HUA!")
     hua_button['command'] = lambda: handle_hua(mqtt_sender)
 
+    meme_button = ttk.Button(frame, text="MEME")
+    meme_button['command'] = lambda: handle_meme(mqtt_sender)
+
+    dismissed_button = ttk.Button(frame, text='Dismiss')
+    dismissed_button['command'] = lambda: handle_dismiss(mqtt_sender)
+
+    report_button = ttk.Button(frame, text='Report')
+    report_button['command'] = lambda: handle_report(mqtt_sender)
+
+    # Labels
+    entry_label = ttk.Label(frame, text='Enter command:')
+
     # Entry Boxes
     main_entry = ttk.Entry(frame)
 
     # Grid Everything
-    main_entry.grid()
-    harch_button.grid()
-    cover_button.grid(row=1, column=1)
-    hua_button.grid(row=2, column=2)
+    entry_label.grid(row=0, column=0)
+    main_entry.grid(row=1, column=0)
+    harch_button.grid(row=1, column=1)
+    face_button.grid(row=1, column=2)
+    cover_button.grid(row=3, column=3)
+    hua_button.grid(row=4, column=1)
+    halt_button.grid(row=1, column=3)
+    dismissed_button.grid(row=5, column=0)
+    meme_button.grid(row=4, column=2)
 
     return frame
 
-def get_image(window, mqtt_sender):
-    # Background Image
+def get_m1_descriptions(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
 
-    path = "C:/Users/meisnehb/pictures/ROTC/airforce.png"
-    img = ImageTk.PhotoImage(Image.open(path))
-    panel = ttk.Label(window, image=img)
-    panel.grid()
+    march_label = ttk.Label(frame, text='Commands for MARCH!')
+    march_label.grid(row=0, column=0)
 
+    forward_label = ttk.Label(frame, text='forward: Cadet robo goes forward until a safety or halt is called')
+    forward_label.grid(row=1, column=0)
+    column_label = ttk.Label(frame, text='column right/left: Turns cadet robo 90 degrees while marching forward.')
+    column_label.grid(row=2, column=0)
+    column_half_label = ttk.Label(frame, text='column half right/left: Turns cadet robo 45 degrees while marching forward.')
+    column_half_label.grid(row=3, column=0)
+    paces_forward_label = ttk.Label(frame, text='(number) paces forward: Cadet robo goes those number of paces forward')
+    paces_forward_label.grid(row=4, column=0)
+    to_the_rear_label = ttk.Label(frame, text='to the rear: While marching forward, cadet robo spins 180 degrees to march'
+                                              'opposite direction.')
+    to_the_rear_label.grid(row=5, column=0)
 
+    return frame
 
 def handle_halt(mqtt_sender, main_entry):
     entry = main_entry.get()
@@ -647,6 +676,8 @@ def handle_march(mqtt_sender, main_entry):
             mqtt_sender.send_message('column', 'left')
         elif entry[7] == 'r':
             mqtt_sender.send_message('column', 'right')
+        elif entry[0] == 't':
+            mqtt_sender.send_message('to_the_rear')          # To the rear
         elif entry[7] == 'h':
             if entry[12] == 'r':
                 mqtt_sender.send_message('column_half', 'right')
@@ -657,6 +688,18 @@ def handle_march(mqtt_sender, main_entry):
     elif type(entry[0]) == int:                             # Paces Forward
         mqtt_sender.send_message('paces_forward', entry[0])
 
+def handle_face(mqtt_sender, main_entry):
+    entry = main_entry.get()
+    print(main_entry.upper())
+    print("HACE!")
+
+    if entry[0] == 'r':
+        mqtt_sender.send_message('face', 'right')
+    elif entry[0] == 'l':
+        mqtt_sender.send_message('face', 'left')
+    elif entry[0] == 'a':
+        mqtt_sender.send_message('face', 'about')
+
 def handle_hua(mqtt_sender):
     print("HUA!")
     mqtt_sender.send_message('hua')
@@ -665,6 +708,17 @@ def handle_cover(mqtt_sender):
     print("COVER!")
     mqtt_sender.send_message('cover')
 
+def handle_report(mqtt_sender):
+    print('REPORT!')
+    mqtt_sender.send_message('report')
+
+def handle_meme(mqtt_sender):
+    print("Meme?")
+    mqtt_sender.send_message('meme')
+
+def handle_dismiss(mqtt_sender):
+    print("Cadet robo has been relieved of his duties for the day.")
+    mqtt_sender.send_message('dismiss')
 
 ###############################################################################
 # M2 Sprint 3 Codes (Individual GUI, Tests, Functions)

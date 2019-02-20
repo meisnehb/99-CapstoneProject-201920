@@ -28,9 +28,13 @@ class receiver(object):
     def __init__(self):
         self.robot = rosebot.RoseBot()
         self.is_time_to_stop = False
+        self.halt = False
+        self.dismiss = False
+        self.report = False
 
     def forward(self, speedL, speedR):
         self.robot.drive_system.go(speedL, speedR)
+
 
     def stop(self):
         self.robot.drive_system.stop()
@@ -145,16 +149,23 @@ class receiver(object):
         self.robot.drive_system.go(50, 50)
 
         while True:
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
+            if self.robot.sensor_system.color_sensor.get_color_as_name() == 'Grey':
+                self.safety()
+                break
+            elif self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
+                self.safety()
+                break
+            elif self.halt == True:
                 self.robot.drive_system.stop()
-                self.robot.arm_and_claw.raise_arm()
-                self.robot.sound_system.speech_maker('safety')
                 break
 
+
     def paces_forward(self, paces):
+        self.check_arm()
         self.robot.drive_system.go_straight_for_inches_using_encoder(paces, 50)
 
     def face(self, direction):
+        self.check_arm()
         if direction == 'right':
             self.robot.drive_system.left_motor.turn_on(50)
             time.sleep(2)
@@ -169,8 +180,8 @@ class receiver(object):
             self.robot.drive_system.stop()
 
     def halt(self):
-        self.robot = rosebot.RoseBot()
         self.robot.drive_system.stop()
+        self.halt = True
 
     def cover(self):
         self.robot = rosebot.RoseBot()
@@ -182,27 +193,26 @@ class receiver(object):
         self.robot.drive_system.left_motor.turn_off()
 
     def column(self, direction):
-
+        self.check_arm()
         if direction == 'right':
             self.robot.drive_system.right_motor.turn_off()
             time.sleep(2)
-            self.robot.drive_system.right_motor.turn_on(50)
+            self.forward_march()
         elif direction == 'left':
             self.robot.drive_system.left_motor.turn_off()
             time.sleep(2)
-            self.robot.drive_system.left_motor.turn_on(50)
+            self.forward_march()
 
     def column_half(self, direction):
-        robot = rosebot.RoseBot()
-
+        self.check_arm()
         if direction == 'right':
-            robot.drive_system.right_motor.turn_off()
+            self.robot.drive_system.right_motor.turn_off()
             time.sleep(1)
-            robot.drive_system.right_motor.turn_on(50)
+            self.forward_march()
         elif direction == 'left':
-            robot.drive_system.left_motor.turn_off()
+            self.robot.drive_system.left_motor.turn_off()
             time.sleep(1)
-            robot.drive_system.left_motor.turn_on(50)
+            self.forward_march()
 
     def stretch(self):
         self.robot.arm_and_claw.raise_arm()
@@ -214,6 +224,41 @@ class receiver(object):
 
     def hua(self):
         self.robot.sound_system.speech_maker.speak('hoo ah')
+
+    def safety(self):
+        self.robot.drive_system.stop()
+        self.robot.arm_and_claw.raise_arm()
+        self.robot.sound_system.speech_maker.speak("safety")
+
+    def report(self):
+        self.report = False
+        self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
+        self.robot.drive_system.go_forward_until_distance_is_less_than(4, 65)
+        self.robot.arm_and_claw.raise_arm()
+        self.robot.sound_system.speech_maker.speak("cadet robo reports in as ordered")
+
+    def check_arm(self):
+        if self.robot.sensor_system.touch_sensor.is_pressed() == True:
+            self.robot.arm_and_claw.lower_arm()
+
+    def dismiss(self):
+        if self.report == True:
+            self.robot.arm_and_claw.lower_arm()
+            self.face('about')
+            self.report == False
+        else:
+            self.dismiss = True
+
+    def meme(self):
+        if self.dismiss == True:
+            self.song()
+        else:
+            print("You cannot meme until you have been dismissed!")
+
+    def to_the_rear(self):
+        self.robot.drive_system.right_motor.turn_off()
+        time.sleep(4)
+        self.forward_march()
 
 
 ###############################################################################

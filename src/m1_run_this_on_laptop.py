@@ -44,7 +44,7 @@ def main():
     # teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, \
     # control_frame, sensor_frame = get_shared_frames(main_frame, mqtt_sender)
 
-    m1_frame = get_individual_frames(main_frame, mqtt_sender)
+    m1_frame, desc_frame = get_individual_frames(main_frame, mqtt_sender)
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
@@ -55,8 +55,7 @@ def main():
     # -------------------------------------------------------------------------
     # grid_frames(teleop_frame, drive_system_frame, beeps_tones_frame,
     #             arm_frame, control_frame, sensor_frame, proximity_frame)
-    grid_my_frames(m1_frame)
-    get_image()
+    grid_my_frames(m1_frame, desc_frame)
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -73,7 +72,8 @@ def main():
 
 def get_individual_frames(main_frame, mqtt_sender):
     m1_frame = shared_gui.get_m1_frame(main_frame, mqtt_sender)
-    return m1_frame
+    desc_frame = shared_gui.get_m1_descriptions(main_frame, mqtt_sender)
+    return m1_frame, desc_frame
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
                   beeps_tones_frame, sensor_frame, proximity_frame, m1_frame):
@@ -86,18 +86,10 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,
     # proximity_frame.grid(row=0, column=2)
     pass
 
-def grid_my_frames(m1_frame):
-    m1_frame.grid()
+def grid_my_frames(m1_frame, desc_frame):
+    m1_frame.grid(row=0, column=0)
+    desc_frame.grid(row=0, column=1)
 
-def get_image():
-    window = tkinter.Tk()
-    window.geometry("300x300")
-    # Background Image
-    path = "C:/Users/meisnehb/pictures/ROTC/airforce.png"
-    img = ImageTk.PhotoImage(Image.open(path))
-    panel = tkinter.Label(window, image=img)
-    panel.pack(side='top', fill='both', expand='no')
-    window.mainloop()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
