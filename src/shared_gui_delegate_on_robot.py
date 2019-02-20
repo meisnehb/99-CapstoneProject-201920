@@ -151,7 +151,7 @@ class receiver(object):
                 self.robot.drive_system.stop()
                 self.is_halt = False
                 break
-            if self.robot.sensor_system.color_sensor.get_color_as_name() == 'White':
+            if self.robot.sensor_system.color_sensor.get_color_as_name() == 'Black':
                 self.safety()
                 break
             elif self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
