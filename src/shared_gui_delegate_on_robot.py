@@ -188,7 +188,6 @@ class receiver(object):
         print(self.is_halt)
 
 
-
     def cover(self):
         self.robot = rosebot.RoseBot()
         self.robot.drive_system.right_motor.turn_on(70)
@@ -240,8 +239,7 @@ class receiver(object):
         self.forward_march()
 
     def find_superior_branch(self):
-        self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
-        self.robot.sound_system.speech_maker.speak("This is the superior branch.")
+        self.robot.sound_system.speech_maker.speak("Air Force of Course")
         self.robot.sound_system.speech_maker.speak("Air Power")
 
 ###############################################################################
