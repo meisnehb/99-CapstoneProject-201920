@@ -405,7 +405,7 @@ class SensorSystem(object):
         self.touch_sensor = TouchSensor(1)
         self.color_sensor = ColorSensor(3)
         self.ir_proximity_sensor = InfraredProximitySensor(4)
-        # self.camera = Camera()
+        self.camera = Camera()
         # self.ir_beacon_sensor = InfraredBeaconSensor(4)
         # self.beacon_system =
         # self.display_system =
@@ -947,8 +947,7 @@ class SpeechMaker(object):
 # SongMaker
 ###############################################################################
 class SongMaker(object):
-    import ev3dev.core
-
+    pass
 
 ###############################################################################
 # -----------------------------------------------------------------------------

@@ -40,7 +40,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-   # teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, control_frame, sensor_frame, tone_frame = get_shared_frames(main_frame, mqtt_sender)
+    # teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, control_frame, sensor_frame, tone_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
