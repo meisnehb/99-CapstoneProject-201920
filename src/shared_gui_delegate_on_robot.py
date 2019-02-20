@@ -28,9 +28,8 @@ class receiver(object):
     def __init__(self):
         self.robot = rosebot.RoseBot()
         self.is_time_to_stop = False
-        self.halt = False
-        self.dismiss = False
-        self.report = False
+        self.is_halt = False
+        self.is_column = False
 
     def forward(self, speedL, speedR):
         self.robot.drive_system.go(speedL, speedR)
@@ -146,16 +145,19 @@ class receiver(object):
         robot.sound_system.tone_maker.play_tone(notes[9], 1500).wait()
 
     def forward_march(self):
+        self.check_arm()
         self.robot.drive_system.go(50, 50)
-        print("In delegate forward")
         while True:
-            if self.robot.sensor_system.color_sensor.get_color_as_name() == 'Grey':
+            if self.robot.sensor_system.color_sensor.get_color_as_name() == 'White':
                 self.safety()
                 break
             elif self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
                 self.safety()
                 break
-            elif self.halt == True:
+            elif self.is_column == True:
+                self.is_column = False
+                break
+            elif self.is_halt == True:
                 self.robot.drive_system.stop()
                 break
 
@@ -169,20 +171,23 @@ class receiver(object):
         self.check_arm()
         if direction == 'right':
             self.robot.drive_system.left_motor.turn_on(50)
-            time.sleep(2)
+            self.robot.drive_system.right_motor.turn_on(-50)
+            time.sleep(1.55)
             self.robot.drive_system.stop()
         elif direction == 'left':
             self.robot.drive_system.right_motor.turn_on(50)
-            time.sleep(2)
+            self.robot.drive_system.left_motor.turn_on(-50)
+            time.sleep(1.55)
             self.robot.drive_system.stop()
         elif direction == 'about':
             self.robot.drive_system.left_motor.turn_on(50)
-            time.sleep(4)
+            self.robot.drive_system.right_motor.turn_on(-50)
+            time.sleep(3.1)
             self.robot.drive_system.stop()
 
     def halt(self):
         self.robot.drive_system.stop()
-        self.halt = True
+        self.is_halt = True
 
     def cover(self):
         self.robot = rosebot.RoseBot()
@@ -194,25 +199,25 @@ class receiver(object):
         self.robot.drive_system.left_motor.turn_off()
 
     def column(self, direction):
-        self.check_arm()
+        self.is_column = True
         if direction == 'right':
             self.robot.drive_system.right_motor.turn_off()
-            time.sleep(2)
+            time.sleep(2.75)
             self.forward_march()
         elif direction == 'left':
             self.robot.drive_system.left_motor.turn_off()
-            time.sleep(2)
+            time.sleep(2.75)
             self.forward_march()
 
     def column_half(self, direction):
-        self.check_arm()
+        self.is_column = True
         if direction == 'right':
             self.robot.drive_system.right_motor.turn_off()
-            time.sleep(1)
+            time.sleep(1.325)
             self.forward_march()
         elif direction == 'left':
             self.robot.drive_system.left_motor.turn_off()
-            time.sleep(1)
+            time.sleep(1.325)
             self.forward_march()
 
     def stretch(self):
@@ -232,7 +237,6 @@ class receiver(object):
         self.robot.sound_system.speech_maker.speak("safety")
 
     def report(self):
-        self.report = False
         self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
         self.robot.drive_system.go_forward_until_distance_is_less_than(4, 65)
         self.robot.arm_and_claw.raise_arm()
@@ -242,25 +246,16 @@ class receiver(object):
         if self.robot.sensor_system.touch_sensor.is_pressed() == True:
             self.robot.arm_and_claw.lower_arm()
 
-    def dismiss(self):
-        if self.report == True:
-            self.robot.arm_and_claw.lower_arm()
-            self.face('about')
-            self.report = False
-        else:
-            self.dismiss = True
-
-    def meme(self):
-        if self.dismiss == True:
-            self.song()
-        else:
-            print("You cannot meme until you have been dismissed!")
-
     def to_the_rear(self):
+        self.is_column = True
         self.robot.drive_system.right_motor.turn_off()
-        time.sleep(4)
+        time.sleep(5.3)
         self.forward_march()
 
+    def find_superior_branch(self):
+        self.robot.drive_system.spin_clockwise_until_sees_object(30, 400)
+        self.robot.sound_system.speech_maker.speak("This is the superior branch.")
+        self.robot.sound_system.speech_maker.speak("Air Power")
 
 ###############################################################################
 # M2 Sprint 3 Codes (Individual GUI, Tests, Functions)

@@ -20,6 +20,7 @@ from PIL import ImageTk
 from PIL import Image
 import time
 
+dismiss = False
 
 def get_teleoperation_frame(window, mqtt_sender):
     """
@@ -590,7 +591,7 @@ def get_m1_frame(window, mqtt_sender):
     # window.geometry("500x500")
     # window.configure(background='white')
 
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame = tkinter.Frame(window, borderwidth=5, relief="ridge", background='blue')
     frame.grid()
 
     # Buttons
@@ -601,7 +602,7 @@ def get_m1_frame(window, mqtt_sender):
     face_button['command'] = lambda: handle_face(mqtt_sender, main_entry)
 
     halt_button = ttk.Button(frame, text="HALT!")
-    halt_button['command'] = lambda: handle_halt(mqtt_sender, main_entry)
+    halt_button['command'] = lambda: handle_halt(mqtt_sender)
 
     cover_button = ttk.Button(frame, text='COVER!')
     cover_button['command'] = lambda: handle_cover(mqtt_sender)
@@ -617,6 +618,9 @@ def get_m1_frame(window, mqtt_sender):
 
     report_button = ttk.Button(frame, text='Report')
     report_button['command'] = lambda: handle_report(mqtt_sender)
+
+    branch_button = ttk.Button(frame, text='Best military branch?')
+    branch_button['command'] = lambda: handle_branch(mqtt_sender)
 
     # Labels
     entry_label = ttk.Label(frame, text='Enter command:')
@@ -635,6 +639,7 @@ def get_m1_frame(window, mqtt_sender):
     dismissed_button.grid(row=5, column=0)
     report_button.grid(row=5, column=1)
     meme_button.grid(row=4, column=2)
+    branch_button.grid(row=5, column=3)
 
     return frame
 
@@ -659,13 +664,10 @@ def get_m1_descriptions(window, mqtt_sender):
 
     return frame
 
-def handle_halt(mqtt_sender, main_entry):
-    entry = main_entry.get()
-    print(entry.upper())
-    if entry == 'flight':
-        print(" HALT!")
-        mqtt_sender.send_message('halt')
-        print('FLIGHT HALT WHAT?')
+def handle_halt(mqtt_sender):
+    print(" HALT!")
+    mqtt_sender.send_message('halt')
+    print('FLIGHT HALT WHAT?')
 
 def handle_march(mqtt_sender, main_entry):
     entry = main_entry.get()
@@ -680,17 +682,21 @@ def handle_march(mqtt_sender, main_entry):
                 mqtt_sender.send_message('to_the_rear')
             elif entry[7] == 'l':
                 print("COLUMN LEFT")
-                mqtt_sender.send_message('column', 'left')
+                s = 'left'
+                mqtt_sender.send_message('column', [s])
             elif entry[7] == 'r':
+                s = 'right'
                 print("COLUMN RIGHT")
-                mqtt_sender.send_message('column', 'right')
+                mqtt_sender.send_message('column', [s])
             elif entry[7] == 'h':
                 if entry[12] == 'r':
+                    s = 'right'
                     print("COLUMN HALF RIGHT")
-                    mqtt_sender.send_message('column_half', 'right')
+                    mqtt_sender.send_message('column_half', [s])
                 elif entry[12] == 'l':
+                    s = 'left'
                     print("COLUMN HALF LEFT")
-                    mqtt_sender.send_message('column_half', 'left')
+                    mqtt_sender.send_message('column_half', [s])
         elif entry[0] == 'f':                               # Forward
             print("FORWARD")
             mqtt_sender.send_message('forward_march')
@@ -702,13 +708,16 @@ def handle_face(mqtt_sender, main_entry):
 
     if entry[0] == 'r':
         print("RIGHT")
-        mqtt_sender.send_message('face', 'right')
+        s = 'right'
+        mqtt_sender.send_message('face', [s])
     elif entry[0] == 'l':
         print("LEFT")
-        mqtt_sender.send_message('face', 'left')
+        s = 'left'
+        mqtt_sender.send_message('face', [s])
     elif entry[0] == 'a':
         print("ABOUT")
-        mqtt_sender.send_message('face', 'about')
+        s = 'about'
+        mqtt_sender.send_message('face', [s])
 
     print(" HACE!")
 def handle_hua(mqtt_sender):
@@ -724,12 +733,20 @@ def handle_report(mqtt_sender):
     mqtt_sender.send_message('report')
 
 def handle_meme(mqtt_sender):
-    print("Meme?")
-    mqtt_sender.send_message('meme')
+    global dismiss
+    if dismiss == True:
+        mqtt_sender.send_message('song')
+    else:
+        "You cannot meme until you have been dismissed."
 
 def handle_dismiss(mqtt_sender):
     print("Cadet robo has been relieved of his duties for the day.")
-    mqtt_sender.send_message('dismiss')
+    global dismiss
+    dismiss = True
+
+def handle_branch(mqtt_sender):
+    print("AIR POWER")
+    mqtt_sender.send_message('find_superior_branch')
 
 ###############################################################################
 # M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
