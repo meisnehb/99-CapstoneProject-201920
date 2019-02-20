@@ -146,8 +146,13 @@ class receiver(object):
 
     def forward_march(self):
         self.robot.drive_system.go(50, 50)
-        while self.is_halt == False:
+        while True:
+            if self.is_halt is True:
+                self.robot.drive_system.stop()
+                self.is_halt = False
+                break
             if self.robot.sensor_system.color_sensor.get_color_as_name() == 'White':
+                self.safety()
                 break
             elif self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
                 self.safety()
@@ -155,9 +160,6 @@ class receiver(object):
             elif self.is_column == True:
                 self.is_column = False
                 break
-        self.robot.drive_system.stop()
-        self.is_halt = False
-
 
     def paces_forward(self, paces):
         paces = int(paces)
@@ -181,7 +183,11 @@ class receiver(object):
             self.robot.drive_system.stop()
 
     def halt(self):
+        print(self.is_halt)
         self.is_halt = True
+        print(self.is_halt)
+
+
 
     def cover(self):
         self.robot = rosebot.RoseBot()
