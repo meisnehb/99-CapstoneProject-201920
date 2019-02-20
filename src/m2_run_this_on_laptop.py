@@ -40,7 +40,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, control_frame, sensor_frame, tone_frame = get_shared_frames(main_frame, mqtt_sender)
+    # teleop_frame, drive_system_frame, beeps_tones_frame, arm_frame, control_frame, sensor_frame, tone_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -50,8 +50,8 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    # my_grid_frames(m2_marching_frame, m2_salute_frame, m2_af_morale_frame, m2_sensor_frame)
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, beeps_tones_frame, sensor_frame, tone_frame)
+    my_grid_frames(m2_marching_frame, m2_salute_frame, m2_af_morale_frame, m2_sensor_frame)
+    # grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, beeps_tones_frame, sensor_frame, tone_frame)
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
