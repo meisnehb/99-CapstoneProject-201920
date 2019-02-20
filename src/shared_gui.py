@@ -19,6 +19,7 @@ from tkinter import ttk
 from PIL import ImageTk
 from PIL import Image
 import time
+import shared_gui_delegate_on_robot
 
 dismiss = False
 
@@ -587,10 +588,6 @@ def handle_exit(mqtt_sender):
 # M1 Sprint 3 Codes (Individual GUI, Tests, Functions)
 ###############################################################################
 def get_m1_frame(window, mqtt_sender):
-    # window.title("AFROTC Simulator")
-    # window.geometry("500x500")
-    # window.configure(background='white')
-
     frame = tkinter.Frame(window, borderwidth=5, relief="ridge", background='blue')
     frame.grid()
 
@@ -662,9 +659,21 @@ def get_m1_descriptions(window, mqtt_sender):
                                               'opposite direction.')
     to_the_rear_label.grid(row=5, column=0)
 
+    blank_label = ttk.Label(frame, text='')
+    blank_label.grid(row=6, column=0)
+
+    face_label = ttk.Label(frame, text='Commands for FACE!')
+    face_label.grid(row=7, column=0)
+    right_left_label = ttk.Label(frame, text='right/left: Turns cadet robo 90 to right or left while stationary')
+    right_left_label.grid(row=8, column=0)
+    about_label = ttk.Label(frame, text='about: Turns cadet robo 180 degrees stationary')
+    about_label.grid(row=9, column=0)
+
+
     return frame
 
 def handle_halt(mqtt_sender):
+    shared_gui_delegate_on_robot.receiver.is_halt = True
     print(" HALT!")
     mqtt_sender.send_message('halt')
     print('FLIGHT HALT WHAT?')
@@ -676,7 +685,8 @@ def handle_march(mqtt_sender, main_entry):
         print(entry[0], "PACES FORWARD")
         mqtt_sender.send_message('paces_forward', entry[0])
     else:
-        if len(entry) >= 11:                                      # Column Movements
+        if len(entry) >= 11:
+            shared_gui_delegate_on_robot.receiver.is_column = True           # Column Movements
             if entry[0] == 't':
                 print("TO THE REAR")
                 mqtt_sender.send_message('to_the_rear')

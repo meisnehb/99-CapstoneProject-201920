@@ -117,7 +117,7 @@ class receiver(object):
                 break
 
 ###############################################################################
-# M2 Sprint 3 Codes (Individual GUI, Tests, Functions)
+# M1 Sprint 3 Codes (Individual GUI, Tests, Functions)
 ###############################################################################
     def song(self):
         robot = rosebot.RoseBot()
@@ -187,7 +187,6 @@ class receiver(object):
 
     def halt(self):
         self.robot.drive_system.stop()
-        self.is_halt = True
 
     def cover(self):
         self.robot = rosebot.RoseBot()
@@ -199,7 +198,6 @@ class receiver(object):
         self.robot.drive_system.left_motor.turn_off()
 
     def column(self, direction):
-        self.is_column = True
         if direction == 'right':
             self.robot.drive_system.right_motor.turn_off()
             time.sleep(2.75)
@@ -210,7 +208,6 @@ class receiver(object):
             self.forward_march()
 
     def column_half(self, direction):
-        self.is_column = True
         if direction == 'right':
             self.robot.drive_system.right_motor.turn_off()
             time.sleep(1.325)
@@ -219,14 +216,6 @@ class receiver(object):
             self.robot.drive_system.left_motor.turn_off()
             time.sleep(1.325)
             self.forward_march()
-
-    def stretch(self):
-        self.robot.arm_and_claw.raise_arm()
-        self.robot.drive_system.right_motor.turn_on(4, 100)
-
-    def recover(self):
-        self.robot.arm_and_claw.lower_arm()
-        self.robot.sound_system.speech_maker.speak("Air Power")
 
     def hua(self):
         self.robot.sound_system.speech_maker.speak('hoo ah')
@@ -247,7 +236,6 @@ class receiver(object):
             self.robot.arm_and_claw.lower_arm()
 
     def to_the_rear(self):
-        self.is_column = True
         self.robot.drive_system.right_motor.turn_off()
         time.sleep(5.3)
         self.forward_march()
